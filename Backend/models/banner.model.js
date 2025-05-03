@@ -20,4 +20,4 @@ const BannerSchema = mongoose.Schema(
 );
 
 const Banner = mongoose.model("Banner", BannerSchema);
-export default Banner;
+export default Banner;
