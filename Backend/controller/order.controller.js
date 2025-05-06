@@ -1,4 +1,4 @@
-import Order from "../models/order.model.js";
+import Order from "../../BackgroundServices/models/order.model.js";
 import asyncHandler from "express-async-handler";
 
 // CREATE ORDER
