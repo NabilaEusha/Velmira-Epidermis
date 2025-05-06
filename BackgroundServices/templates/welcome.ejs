@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Velmira</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        min-width: 100%;
+        font-family: 'Lato', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #222222;
+        background-color: #f9f7f8;
+      }
+
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .email-wrapper {
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .email-header {
+        background-color: #e9dfe5;
+        padding: 30px;
+        color: #5e3d4d;
+        text-align: center;
+      }
+
+      .email-body {
+        padding: 24px;
+        background-color: #fdfdfd;
+      }
+
+      .email-footer {
+        background-color: #e9dfe5;
+        padding: 14px;
+        color: #5e3d4d;
+        text-align: center;
+      }
+
+      img {
+        padding: 16px;
+        max-width: 160px;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-wrapper">
+      <div class="email-header">
+        <img src="/logo.png" alt="Velmira Logo" />
+      </div>
+      <div class="email-body">
+        <p>Hello <%= name %>,</p>
+        <p>Welcome to <strong>Velmira</strong> — where velvet meets mirror, and your skin reflects its natural radiance.</p>
+        <p>We're excited to help you discover gentle, science-backed skincare made just for you. Start with our personalized Skin Analysis tool and explore products tailored to your unique glow.</p>
+        <p>Thank you for choosing Velmira. Here's to soft, luminous skin.</p>
+      </div>
+      <div class="email-footer">
+        <p>&copy;2024 Velmira. Reflect Your Radiance.</p>
+      </div>
+    </div>
+  </body>
+</html>

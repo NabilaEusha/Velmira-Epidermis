@@ -1,4 +1,4 @@
-import User from "../models/user.model.js";
+import User from "../../BackgroundServices/models/user.model.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 
