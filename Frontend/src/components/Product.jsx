@@ -1,11 +1,11 @@
 import StarRatings from "react-star-ratings";
 
 
-const Product = () => {
+const Product = ({img}) => {
   return (
-     <div className="flex flex-col items-center justify-center h-[500px] m-[10px] cursor-pointer">
+     <div className="flex flex-col items-center justify-center h-[500px] m-[30px] cursor-pointer">
         <img
-          src="/serum1.jpg"
+          src={img}
           alt=""
           className="h-[400px] w-[300px] bg-cover"
         ></img>
