@@ -1,45 +1,40 @@
 const Footer = () => {
   return (
-    <div className="bg-gray-100 px-[200px] h-[60vh] mt-[40px]">
+    <div className="bg-[#c9c48b] px-6 md:px-12 lg:px-24 xl:px-36 2xl:px-52 py-10 mt-10">
       {/* UPPER PART */}
-      <div className="flex justify-between py-[5%]">
-        <div>
-          <img src="/blisslogo1.png" alt="" height={200} width={200} />
-          <p className="mt-2">
-            LET`S MAKE YOUR SKIN FLOURISH WITH OUR PRODUCTS
+      <div className="flex flex-col md:flex-row justify-between gap-10">
+        {/* Logo and Text */}
+        <div className="flex-1">
+       
+          <img src="/blisslogo1.png" alt="Bliss Logo" className="w-32 h-auto" />
+          
+          <p className="mt-4 text-sm md:text-base">
+            LET'S MAKE YOUR SKIN FLOURISH WITH OUR PRODUCTS
           </p>
         </div>
 
-        <div>
-          <h3 className="text-xl font-semibold">Quick Links</h3>
-          <ul className="mt-2 space-y-2">
-            <li>
-              <a href="" className="hover:underline"> Home</a>
-            </li>
-            <li>
-              <a href="" className="hover:underline"> About us</a>
-            </li>
-            <li>
-              <a href="" className="hover:underline"> Shop</a>
-            </li>
-            <li>
-              <a href="" className="hover:underline">Contact</a>
-            </li>
+        {/* Quick Links */}
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold">Quick Links</h3>
+          <ul className="mt-4 space-y-2 text-sm md:text-base">
+            <li><a href="#" className="hover:underline">Home</a></li>
+            <li><a href="#" className="hover:underline">About us</a></li>
+            <li><a href="#" className="hover:underline">Shop</a></li>
+            <li><a href="#" className="hover:underline">Contact</a></li>
           </ul>
         </div>
 
-        <div className="w-full md:w-1/3">
-
-          <h2 className="text-xl font-semibold">Contact Us</h2>
-          <p className="mt-2">123 BeautyBliss Ave, City, Country</p>
+        {/* Contact Info */}
+        <div className="flex-1">
+          <h3 className="text-lg font-semibold">Contact Us</h3>
+          <p className="mt-4 text-sm md:text-base">5060 SNK, CUET, Chittagong, Bangladesh</p>
           <p className="mt-2">Phone: (123) 456-7890</p>
-          <p className="mt-2">Email: info@beautybliss.com</p>
+          <p className="mt-2">Email: velmira5060@gmail.com</p>
         </div>
-
       </div>
 
       {/* LOWER PART */}
-      <div className="mt-8 border-t border-[#e9acd9] pt-4 text-center">
+      <div className="mt-1 border-t border-[#66631b] pt-1 text-center">
         <p>&copy; 2025 Velmira. All rights reserved.</p>
         <div className="flex justify-center space-x-4 mt-4">
           <a href="#" className="hover:text-red-400">
@@ -59,7 +54,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div />
+     
     </div>
   );
 };
