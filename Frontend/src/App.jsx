@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import {RouterProvider, createBrowserRouter, Outlet} from "react-router-dom";
 import Announcement from "./components/Announcement";
 import Product from './pages/Product';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
 
@@ -32,6 +34,14 @@ function App() {
         {
            path: "/cart",
            element: <Cart />
+        },
+        {
+           path: "/login",
+           element: <Login />
+        },
+        {
+           path: "/create-account",
+           element: <Register />
         },
         {
            path: "/myaccount",
