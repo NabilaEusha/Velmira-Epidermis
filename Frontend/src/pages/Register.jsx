@@ -2,44 +2,39 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
-    <div className="flex items-center justify-center mt-[3%]">
-      <div className="flex items-center bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#c1d196]">
+      <div className="flex items-center bg-white shadow-2xl rounded-xl overflow-hidden mt-[30px]">
         {/* IMAGE */}
-        <div className="h-[500px] w-[500px] transition-transform duration-700 ease-in-out transform hover:scale-105">
+        <div className="h-[400px] w-[750px] transition-transform duration-700 ease-in-out transform hover:scale-105">
           <img
-            src="\blisslogo1.png"
-            alt="login"
+            src="/blisslogo1.png"
+            alt="register"
             className="object-cover h-full w-full"
           />
         </div>
+
         {/* FORM */}
         <div className="p-10 w-[500px]">
-          <h2 className="text-xl font-bold text-gray-700 mb-5">Create Account</h2>
-          <form className="spay-y-5">
-            <div className="mb-5">
-              <label htmlFor="" className="block text-gray-600 mb-1">
-                Full Name
-              </label>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Create Account</h2>
+          <form className="space-y-5">
+            <div>
+              <label className="block text-gray-600 mb-2">Full Name</label>
               <input
                 type="text"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
                 placeholder="Nabila S."
               />
             </div>
-            <div className="mb-5">
-              <label htmlFor="" className="block text-gray-600 mb-1">
-                Email
-              </label>
+            <div>
+              <label className="block text-gray-600 mb-2">Email</label>
               <input
                 type="text"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
                 placeholder="example@example.com"
               />
             </div>
-            <div className="mb-5">
-              <label htmlFor="" className="block text-gray-600 mb-1">
-                Password
-              </label>
+            <div>
+              <label className="block text-gray-600 mb-2">Password</label>
               <input
                 type="password"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
@@ -47,19 +42,21 @@ const Register = () => {
               />
             </div>
 
-            <button className="w-full py-2 bg-[#75954c] text-white font-bold rounded-md transition-transform  duration-500 hover:bg-green-900 focus:outline-none focus:ring-green-900 transform hover:scale-105">
+            <button className="w-full py-3 bg-[#75954c] text-white font-semibold rounded-md transition-transform duration-300 hover:bg-green-900 hover:scale-105">
               Create an Account
             </button>
 
-            <div className="mt-4 text-sm text-gray-600">
-              <span>Have an account already?</span>
-              <Link to="/login" className="text-red-800 not-visited:hover:underline ml-1"> Login</Link>
+            <div className="text-sm text-gray-600 text-center mt-4">
+              <span>Already have an account?</span>
+              <Link to="/login" className="text-red-700 hover:underline ml-1">
+                Login
+              </Link>
             </div>
           </form>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
