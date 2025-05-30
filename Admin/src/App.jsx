@@ -5,6 +5,8 @@ import Users from './pages/Users';
 import Products from './pages/Products';
 
 import './App.css'
+import Orders from './pages/Orders';
+import Banners from './pages/Banners';
 
 function App() {
 
@@ -38,15 +40,15 @@ function App() {
         {
           path: '/products',
           element: <Products />,
-        }
-        // {
-        //   path: '/orders',
-        //   element: <Orders />,
-        // },
-        // {
-        //   path: '/banners',
-        //   element: <Banners />,
-        // },
+        },
+        {
+          path: '/orders',
+          element: <Orders />,
+        },
+        {
+          path: '/banners',
+          element: <Banners />,
+        },
         // {
         //   path: '/newproduct',
         //   element: <NewProduct />,
