@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#c1d196]">
-      <div className="flex items-center bg-white shadow-2xl rounded-xl overflow-hidden mt-[-70px]">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#c1d196] animate-gradient">
+      <div className="flex items-center bg-white shadow-2xl rounded-x1 overflow-hidden mt-[-70px]">
         {/* IMAGE */}
         <div className="h-[500px] w-[700px] transition-transform duration-700 ease-in-out transform hover:scale-105">
           <img
@@ -15,10 +15,10 @@ const Login = () => {
 
         {/* FORM */}
         <div className="p-10 w-[500px]">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Login</h2>
+          <h2 className="text-2xl font-extrabold mb-6  font-[Poppins] tracking-wide">Login</h2>
           <form className="space-y-6">
             <div>
-              <label className="block text-gray-600 mb-2">Email</label>
+              <label className="block font-[Poppins] text-gray-600 mb-2">Email</label>
               <input
                 type="email"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
@@ -26,7 +26,7 @@ const Login = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-600 mb-2">Password</label>
+              <label className="block font-[Poppins] text-gray-600 mb-2">Password</label>
               <input
                 type="password"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
@@ -34,11 +34,11 @@ const Login = () => {
               />
             </div>
 
-            <button className="w-full py-3 bg-[#75954c] text-white font-semibold rounded-md transition-transform duration-300 hover:bg-green-900 hover:scale-105">
+            <button className="w-full py-3 bg-[#75954c] text-white font-[Poppins] font-semibold rounded-md transition-transform duration-300 hover:bg-green-900 hover:scale-105">
               Login
             </button>
 
-            <div className="text-sm text-gray-600 text-center mt-4">
+            <div className="text-sm font-[Poppins] text-gray-600 text-center mt-4">
               <span>Don’t have an account?</span>
               <Link
                 to="/create-account"

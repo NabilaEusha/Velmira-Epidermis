@@ -15,10 +15,10 @@ const Register = () => {
 
         {/* FORM */}
         <div className="p-10 w-[500px]">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Create Account</h2>
+          <h2 className="text-2xl font-extrabold font-[Poppins] text-gray-800 mb-6">Create Account</h2>
           <form className="space-y-5">
             <div>
-              <label className="block text-gray-600 mb-2">Full Name</label>
+              <label className="block font-[Poppins] text-gray-600 mb-2">Full Name</label>
               <input
                 type="text"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
@@ -26,7 +26,7 @@ const Register = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-600 mb-2">Email</label>
+              <label className="block font-[Poppins] text-gray-600 mb-2">Email</label>
               <input
                 type="text"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
@@ -34,7 +34,7 @@ const Register = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-600 mb-2">Password</label>
+              <label className="block text-gray-600 font-[Poppins] mb-2">Password</label>
               <input
                 type="password"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#9cc960]"
@@ -42,11 +42,11 @@ const Register = () => {
               />
             </div>
 
-            <button className="w-full py-3 bg-[#75954c] text-white font-semibold rounded-md transition-transform duration-300 hover:bg-green-900 hover:scale-105">
+            <button className="w-full py-3 font-[Poppins] bg-[#75954c] text-white font-semibold rounded-md transition-transform duration-300 hover:bg-green-900 hover:scale-105">
               Create an Account
             </button>
 
-            <div className="text-sm text-gray-600 text-center mt-4">
+            <div className="text-sm font-[Poppins] text-gray-600 text-center mt-4">
               <span>Already have an account?</span>
               <Link to="/login" className="text-red-700 hover:underline ml-1">
                 Login
