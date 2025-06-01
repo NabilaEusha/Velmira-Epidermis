@@ -7,6 +7,8 @@ import Products from './pages/Products';
 import './App.css'
 import Orders from './pages/Orders';
 import Banners from './pages/Banners';
+import NewProduct from './pages/NewProduct';
+import Product from './pages/Product';
 
 function App() {
 
@@ -49,14 +51,14 @@ function App() {
           path: '/banners',
           element: <Banners />,
         },
-        // {
-        //   path: '/newproduct',
-        //   element: <NewProduct />,
-        // },
-        // {
-        //   path: '/product/:id',
-        //   element: <Product />,
-        // }
+        {
+          path: '/newproduct',
+          element: <NewProduct />,
+        },
+        {
+          path: '/product/:id',
+          element: <Product />,
+        }
       ],
     },
   ]);
