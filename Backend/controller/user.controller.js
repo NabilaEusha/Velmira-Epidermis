@@ -1,8 +1,9 @@
-import User from "../../BackgroundServices/models/user.model.js";
+import User from "../models/user.model.js";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 
 // UPDATE USER
+
 const updateUser = asyncHandler(async (req, res) => {
   if (req.body.password) {
     const salt = await bcrypt.genSalt(10);
