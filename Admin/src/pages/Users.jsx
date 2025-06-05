@@ -1,8 +1,24 @@
 import { FaTrash } from 'react-icons/fa';
 import {DataGrid} from '@mui/x-data-grid';
+import {userRequest} from "../requestMethods"
+import { useEffect, useState } from 'react';
 
 const Users = () => {
+ const [users, setUsers] = useState([]);
 
+  useEffect(() =>{
+   
+    const getUsers = async() =>{
+
+      try {
+      const res = await userRequest.get("/users");
+      setUsers(res.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getUsers();
+  },[])
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     { field: "name", headerName: "Name", width: 150 },
@@ -33,14 +49,13 @@ const Users = () => {
     { _id: "u007", name: "Grace Lee", email: "grace@example.com", phone: "789-012-3456", role: "User" },
     { _id: "u008", name: "Henry Kim", email: "henry@example.com", phone: "890-123-4567", role: "Admin" },
   ];
-
-  return (
+ return (
     <div className="p-5 w-[70vw]">
       <div className="flex items-center justify-between m-[30px]">
         <h1 className="m-[20px] text-[20px]">All Users</h1>
       </div>
       <div className='m-[30px]'>
-      <DataGrid getRowId={(row) => row._id} rows={data} checkboxSelection columns={columns} />
+      <DataGrid getRowId={(row) => row._id} rows={users} checkboxSelection columns={columns} />
       </div>
 
     </div>
