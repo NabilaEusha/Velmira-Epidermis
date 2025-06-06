@@ -1,14 +1,101 @@
 import StarRatings from "react-star-ratings";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { userRequest } from "../requestMethods";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addProduct } from "../redux/cartRedux";
+// import { showAverageRating } from "../components/Ratings"
 
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  let price;
+
+  const handleQuantity = (action) => {
+    if (action === "dec") {
+      setQuantity(quantity === 1 ? 1 : quantity - 1);
+    }
+
+    if (action === "inc") {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await userRequest.get("/products/find/" + id);
+
+        setProduct(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProduct();
+  }, [id]);
+
+  const handlePrice = (
+    originalPrice,
+    discountedPrice,
+    wholePrice,
+    minimumQuantity,
+    quantity
+  ) => {
+    if (quantity > minimumQuantity && discountedPrice) {
+      discountedPrice = wholePrice;
+
+      price = discountedPrice;
+
+      return price;
+    } else if (quantity > minimumQuantity && originalPrice) {
+      originalPrice = wholePrice;
+
+      price = originalPrice;
+
+      return price;
+    } else if (discountedPrice) {
+      price = discountedPrice;
+
+      return price;
+    } else {
+      price = originalPrice;
+
+      return price;
+    }
+  };
+
+  const handleAddToCart = () => {
+    dispatch(
+      addProduct({ ...product, quantity, price, email: "johndoe@gmail.com" })
+    );
+    toast.success("Product has been added to basket successfully", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    console.log(cart);
+  };
   return (
     <div className="p-8 flex flex-col lg:flex-row gap-10">
       {/* LEFT IMAGE */}
       <div className="flex-1 flex justify-center">
         <img
-          src="/lotion1.jpg"
-          alt="Lotion"
+          src={product.img}
+          alt=""
           className="h-[500px] w-full max-w-[650px] object-cover rounded-md shadow-lg"
         />
       </div>
@@ -16,18 +103,22 @@ const Product = () => {
       {/* RIGHT CONTENT */}
       <div className="flex-1 flex flex-col">
         {/* Title */}
-        <h2 className="text-2xl font-semibold mb-4">
-          COSRX Advanced Snail 96 Mucin Power Essence 100ml
-        </h2>
+        <h2 className="text-2xl font-semibold mb-4">{product.title}</h2>
 
         {/* Description */}
-        <p className="text-gray-700 mb-4">
-         COSRX Snail Mucin Essence (96% filtrate) deeply hydrates, repairs skin, fades pigmentation, and softens fine lines. Key ingredients like hyaluronic acid and panthenol boost elasticity. Suitable for most skin types.
-
-        </p>
+        <p className="text-gray-700 mb-4">{product.desc}</p>
 
         {/* Price */}
-        <h3 className="text-xl font-semibold mb-2">$90</h3>
+        <h3 className="text-xl font-semibold mb-2">
+          $
+          {handlePrice(
+            product.originalPrice,
+            product.discountedPrice,
+            product.wholesalePrice,
+            product?.wholesaleMinimumQuantity,
+            quantity
+          )}
+        </h3>
 
         {/* Rating */}
         <div className="flex items-center mb-6">
@@ -46,29 +137,38 @@ const Product = () => {
             WHAT'S IN THE BOX
           </h2>
           <hr className="mb-4" />
-         <span className="text-[18px] text-gray-600 block">
-  <div className="space-y-2">
-    <div>
-      <strong>1.</strong> COSRX Advanced Snail Mucin Essence (100ml)
-    </div>
-    <div>
-      <strong>2.</strong> A Little Gift from Velmira – A surprise mini treat, just for you!
-    </div>
-  </div>
-</span>
+          <span className="text-[18px] text-gray-600 block">
 
+             {product.title}
+            {/* <div className="space-y-2">
+              <div>
+                <strong>1.</strong> {product.title}
+              </div>
+              <div>
+                <strong>2.</strong> A Little Gift from Velmira – A surprise mini
+                treat, just for you!
+              </div>
+            </div> */}
+          </span>
         </div>
 
         {/* Wholesale offer */}
         <div className="inline-flex items-center bg-[#96694c] text-white font-semibold text-sm p-4 rounded-full shadow-md mb-6">
-          Wholesale Available: $70 as from 10 items
+          Wholesale Available: ${product.wholesalePrice} as from{" "}
+          {product.wholesaleMinimumQuantity} items{" "}
         </div>
 
         {/* Quantity selector */}
         <div className="flex items-center mb-6">
-          <FaMinus className="bg-[#ab9962] text-white cursor-pointer p-2 rounded-full text-3xl" />
-          <span className="text-lg font-semibold mx-6">1</span>
-          <FaPlus className="bg-[#ab9962] text-white cursor-pointer p-2 rounded-full text-3xl" />
+          <FaMinus
+            className="bg-[#ab9962] text-white cursor-pointer p-2 rounded-full text-3xl"
+            onClick={() => handleQuantity("dec")}
+          />
+          <span className="text-lg font-semibold mx-6">{quantity}</span>
+          <FaPlus
+            className="bg-[#ab9962] text-white cursor-pointer p-2 rounded-full text-3xl"
+            onClick={() => handleQuantity("inc")}
+          />
         </div>
 
         {/* Add to cart button */}
