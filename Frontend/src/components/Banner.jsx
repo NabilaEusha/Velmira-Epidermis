@@ -1,35 +1,47 @@
 import Slider from "react-slick";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods";
 
 const Banner = () => {
-  const images = [
-    "/banner2.jpg",
-    "/beautybanner.jpg",
-    "/banner2.jpg",
-    "/beautybanner2.jpg",
-    "/beautybanner4.jpg",
-    "/beautybanner3.jpg",
-  ];
-
   const settings = {
     dots: true,
     infinite: true,
-    speed: 800, // how fast the transition happens
+    speed: 800,
     fade: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000, // change every 1.5 seconds
-    pauseOnHover: false, // keep going even if hovered
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
     arrows: false,
   };
 
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const res = await userRequest.get("/banners"); // <-- Fetch all banners
+        setBanners(res.data); // should be an array of banner objects
+      } catch (error) {
+        console.error("Failed to fetch banners", error);
+      }
+    };
+
+    fetchBanners();
+  }, []);
+
+  if (banners.length === 0) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Slider {...settings}>
-      {images.map((img, index) => (
+      {banners.map((banner, index) => (
         <div key={index}>
           <div
             className="relative bg-no-repeat bg-cover h-[80vh] px-[200px]"
-            style={{ backgroundImage: `url(${img})` }}
+            style={{ backgroundImage: `url(${banner.img})` }}
           >
             <div className="absolute inset-0 bg-black opacity-30"></div>
 
@@ -38,14 +50,14 @@ const Banner = () => {
                 className="text-[40px] mt-25 font-semibold"
                 style={{ fontFamily: "var(--font-italiana)" }}
               >
-                A Personalized Approach to Skincare for Radiant Skin.
+                {banner.title}
               </span>
 
               <h1
                 className="text-3xl mt-3 font-gray-200"
                 style={{ fontFamily: "var(--font-italiana)" }}
               >
-                Glow with Confidence
+                {banner.subtitle}
               </h1>
               <div className="flex items-center mt-[20px]">
                 <button className="bg-[#2d310e] p-[10px] w-[200px] text-white cursor-pointer mr-9">
