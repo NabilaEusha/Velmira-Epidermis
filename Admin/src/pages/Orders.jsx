@@ -1,8 +1,23 @@
-import { FaCheckCircle, FaCheckDouble, FaClock} from 'react-icons/fa';
-import {DataGrid} from '@mui/x-data-grid';
+import { FaCheckCircle, FaCheckDouble, FaClock } from "react-icons/fa";
+import { DataGrid } from "@mui/x-data-grid";
+import { useState } from "react";
+import { useEffect } from "react";
+import { userRequest } from "../requestMethods";
 
 const Orders = () => {
-   const columns = [
+  const [orders, setOrders] = useState([]);
+
+  const handleUpdateOrder = async (id) => {
+    try {
+      await userRequest.put(`/orders/${id}`, {
+        status: 2,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const columns = [
     { field: "_id", headerName: "Order ID", width: 100 },
     { field: "name", headerName: "Customer Name", width: 200 },
     { field: "email", headerName: "Customer Email", width: 150 },
@@ -30,42 +45,46 @@ const Orders = () => {
         return (
           <>
             {params.row.status === 1 || params.row.status === 0 ? (
-              <FaCheckCircle className=" text-[25px] cursor-pointer mt-2" 
-
-             
+              <FaCheckCircle
+                className=" text-[25px] cursor-pointer mt-2"
+                onClick={() => handleUpdateOrder(params.row._id)}
               />
             ) : (
-             ""
+              ""
             )}
           </>
         );
       },
-    },   
+    },
   ];
 
-  const data = [
-  { _id: "101", name: "Alice Johnson", email: "alice@example.com", status: 1 },
-  { _id: "102", name: "Bob Smith", email: "bob@example.com", status: 0 },
-  { _id: "103", name: "Charlie Brown", email: "charlie@example.com", status: 2 },
-  { _id: "104", name: "David Clark", email: "david@example.com", status: 1 },
-  { _id: "105", name: "Eve Stone", email: "eve@example.com", status: 0 },
-  { _id: "106", name: "Frank Wilson", email: "frank@example.com", status: 1 },
-  { _id: "107", name: "Grace Lee", email: "grace@example.com", status: 2 },
-  { _id: "108", name: "Henry Kim", email: "henry@example.com", status: 0 },
-];
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const res = await userRequest.get("/orders");
+        setOrders(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getOrders();
+  }, []);
 
   return (
-     <div className="p-5 w-[70vw]">
+    <div className="p-5 w-[70vw]">
       <div className="flex items-center justify-between m-[30px]">
         <h1 className="m-[20px] text-[20px]">Orders</h1>
-        
       </div>
-      <div className='m-[30px]'>
-      <DataGrid getRowId={(row) => row._id} rows={data} checkboxSelection columns={columns} />
+      <div className="m-[30px]">
+        <DataGrid
+          getRowId={(row) => row._id}
+          rows={orders}
+          checkboxSelection
+          columns={columns}
+        />
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Orders
+export default Orders;

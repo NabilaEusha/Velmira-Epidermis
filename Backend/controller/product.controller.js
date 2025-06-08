@@ -1,4 +1,3 @@
-
 import Product from "../models/product.model.js";
 import asyncHandler from "express-async-handler";
 
@@ -89,12 +88,12 @@ const getALLproducts = asyncHandler(async (req, res) => {
 const ratingProduct = asyncHandler(async (req, res) => {
   const { star, name, comment, postedBy } = req.body;
 
-//   console.log(star, name, comment, postedBy)
-//   console.log(req.params.id)
+  console.log(star, name, comment, postedBy)
+  console.log(req.params.id)
 
 
-  if (star && name && comment && postedBy) {
-    const postedBy = await Product.findByIdAndUpdate(
+  if (star) {
+    await Product.findByIdAndUpdate(
       req.params.id,
 
       {
