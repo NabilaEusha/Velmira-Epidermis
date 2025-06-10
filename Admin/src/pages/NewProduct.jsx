@@ -41,7 +41,7 @@ const NewProduct = () => {
     })
   }
 
-  const handleUpload = async(e) =>{
+  const handleUpload = async(e) => {
     e.preventDefault();
     const data = new FormData();
     data.append("file", selectedImage);
@@ -49,23 +49,22 @@ const NewProduct = () => {
 
     setUploading("Uploading ...")
     try {
-      
+      console.log("Starting upload to Cloudinary...");
       const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dkjenslgr/image/upload",
+        "https://api.cloudinary.com/v1_1/dur3dmmji/image/upload",
         data
       );
 
       const {url} = uploadRes.data;
+      console.log("Image uploaded successfully! URL:", url);
 
       setUploading("Uploaded 100%")
-      await userRequest.post("/products", {img: url, ...inputs, ...selectedOptions})
+      const productResponse = await userRequest.post("/products", {img: url, ...inputs, ...selectedOptions})
+      console.log("Product saved to database:", productResponse.data);
     } catch (error) {
-      console.log(error);
+      console.log("Error during upload:", error);
       setUploading("Uploading failed")
-      
     }
-
-
   }
   return (
     <div className="p-5">
@@ -249,6 +248,7 @@ const NewProduct = () => {
                 <option>Well Being</option>
                 <option>Acne</option>
                 <option>Hair Growth</option>
+                <option>Anti Aging</option>
 
               </select>
             </div>
@@ -314,7 +314,7 @@ const NewProduct = () => {
                 </option>
                 <option>Toners</option>
                 <option>Serums</option>
-                <option>Foundations</option>
+                <option>Sunscreens</option>
                 <option>Lotions</option>
 
               </select>
