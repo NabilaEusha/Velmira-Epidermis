@@ -6,7 +6,11 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 const Navbar = () => {
-   const [search, setSearch] = useState("");
+
+  const [search, setSearch] = useState("");
+  const cart = useSelector((state) => state.cart)
+  const user = useSelector((state) => state.user);
+
   return (
     <div className="flex items-center justify-between h-[100px] shadow-md px-6">
       <Link to="/">
@@ -30,7 +34,7 @@ const Navbar = () => {
       <div className="flex items-center">
         <Link to="/cart">
         <div className="mr-[20px] cursor-pointer">
-          <Badge badgeContent={2} color="secondary">
+          <Badge badgeContent={cart.quantity} color="secondary">
             <ShoppingBacketIcon className="text-[#5f520c]" />
           </Badge>
         </div>
@@ -39,9 +43,14 @@ const Navbar = () => {
         <Link to="/login">
         <div className="flex items-center cursor-pointer space-x-2 border border-[#131402] p-2 rounded-lg hover:bg-[#cedeb1] duration-300">
           <FaUser className="text-[#6d7028] hover:text-[#3e3f28] transition duration-300" />
-          <span className="text-[#414312] hover:text-[#131402] font-semibold">
+          {!user.currentUser ? <span className="text-[#414312] hover:text-[#131402] font-semibold">
             Login
-          </span>
+          </span>:
+          
+            <Link to="/myaccount"> 
+              <span  className="text-[#6d7028] hover:text-[#3e3f28] transition duration-300 font-semibold">{user.currentUser.name}</span>
+            </Link>
+            }
         </div>
         </Link>
       </div>

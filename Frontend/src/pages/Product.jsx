@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from "../redux/cartRedux";
-// import { showAverageRating } from "../components/Ratings"
+import { showAverageRating } from "../components/Ratings"
 
 const Product = () => {
   const location = useLocation();
@@ -75,7 +75,7 @@ const Product = () => {
 
   const handleAddToCart = () => {
     dispatch(
-      addProduct({ ...product, quantity, price, email: "johndoe@gmail.com" })
+      addProduct({ ...product, quantity, price, email: "eusha.nabila@gmail.com" })
     );
     toast.success("Product has been added to basket successfully", {
       position: "top-right",
@@ -91,6 +91,16 @@ const Product = () => {
   };
   return (
     <div className="p-8 flex flex-col lg:flex-row gap-10">
+          <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover />
       {/* LEFT IMAGE */}
       <div className="flex-1 flex justify-center">
         <img
@@ -122,13 +132,7 @@ const Product = () => {
 
         {/* Rating */}
         <div className="flex items-center mb-6">
-          <StarRatings
-            rating={2.403}
-            starDimension="25px"
-            starRatedColor="yellow"
-            starSpacing="5px"
-          />
-          <span className="ml-2 text-gray-600">(2)</span>
+              {showAverageRating(product)}
         </div>
 
         {/* What's in the box */}
@@ -140,15 +144,7 @@ const Product = () => {
           <span className="text-[18px] text-gray-600 block">
 
              {product.title}
-            {/* <div className="space-y-2">
-              <div>
-                <strong>1.</strong> {product.title}
-              </div>
-              <div>
-                <strong>2.</strong> A Little Gift from Velmira – A surprise mini
-                treat, just for you!
-              </div>
-            </div> */}
+          
           </span>
         </div>
 
@@ -172,7 +168,9 @@ const Product = () => {
         </div>
 
         {/* Add to cart button */}
-        <button className="bg-[#7a6557] text-white font-medium py-3 px-6 w-[200px] rounded-md mb-6 hover:opacity-90 transition">
+        <button className="bg-[#7a6557] text-white font-medium py-3 px-6 w-[200px] rounded-md mb-6 hover:opacity-90 transition cursor-pointer shadow-md"
+        onClick={handleAddToCart}
+        >
           Add to Cart
         </button>
 
@@ -182,27 +180,21 @@ const Product = () => {
         <div>
           <h2 className="text-lg font-semibold mb-4">Reviews</h2>
 
-          {/* Review 1 */}
-          <div className="flex items-center mb-4">
-            <StarRatings
-              rating={2.403}
-              starDimension="25px"
-              starRatedColor="yellow"
-              starSpacing="5px"
-            />
-            <span className="ml-4 font-semibold">Tasnia S.</span>
-          </div>
+          
+          {
+            product?.ratings?.map((rating, index) => (
+              <div className="flex items-center" key={index}>
+                <StarRatings
+                  rating={parseInt(rating.star)}
+                  starDimension="25px"
+                  starRatedColor="red"
+                  starSpacing="5px"
+                />
+                <span className="font-semibold mx-[20px]">{rating.postedBy}</span>
+              </div>
+            ))
+          }
 
-          {/* Review 2 */}
-          <div className="flex items-center">
-            <StarRatings
-              rating={2.403}
-              starDimension="25px"
-              starRatedColor="yellow"
-              starSpacing="5px"
-            />
-            <span className="ml-4 font-semibold">Eusha</span>
-          </div>
         </div>
       </div>
     </div>
