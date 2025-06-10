@@ -40,19 +40,22 @@ const Navbar = () => {
         </div>
         </Link>
 
-        <Link to="/login">
         <div className="flex items-center cursor-pointer space-x-2 border border-[#131402] p-2 rounded-lg hover:bg-[#cedeb1] duration-300">
-          <FaUser className="text-[#6d7028] hover:text-[#3e3f28] transition duration-300" />
-          {!user.currentUser ? <span className="text-[#414312] hover:text-[#131402] font-semibold">
-            Login
-          </span>:
-          
-            <Link to="/myaccount"> 
-              <span  className="text-[#6d7028] hover:text-[#3e3f28] transition duration-300 font-semibold">{user.currentUser.name}</span>
-            </Link>
-            }
-        </div>
-        </Link>
+  <FaUser className="text-[#6d7028] hover:text-[#3e3f28] transition duration-300" />
+  
+  {!user.currentUser ? (
+    <Link to="/login">
+      <span className="text-[#414312] hover:text-[#131402] font-semibold">Login</span>
+    </Link>
+  ) : (
+    <Link to="/myaccount">
+      <span className="text-[#6d7028] hover:text-[#3e3f28] transition duration-300 font-semibold">
+        {user.currentUser.name}
+      </span>
+    </Link>
+  )}
+</div>
+
       </div>
     </div>
   );
