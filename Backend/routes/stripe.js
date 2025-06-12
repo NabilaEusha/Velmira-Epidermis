@@ -60,7 +60,7 @@ router.post("/create-checkout-session", async(req, res) => {
 // web hook
 let endpointSecret;
 // This is your Stripe CLI webhook secret for testing your endpoint locally.
-// let endpointSecret = "whsec_8b4c0341b495b4e6638f7cfbe1ec731491df8027526ca7a55186af0ddd41a364";
+//let endpointSecret = "whsec_8b4c0341b495b4e6638f7cfbe1ec731491df8027526ca7a55186af0ddd41a364"
 
 router.post(
     "/webhook",

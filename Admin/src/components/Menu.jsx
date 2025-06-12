@@ -25,10 +25,12 @@ const Menu = () => {
       <ul className="flex flex-col gap-1">
         {/* Section: Dashboard */}
         <p className="text-gray-400 uppercase text-xs px-2">Dashboard</p>
+        <Link to="/">
         <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
           <FaHome className="text-[#2b4b6b] group-hover:text-white" />
           Home
         </li>
+        </Link>
         <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
           <FaUser className="text-[#2b4b6b]" />
           Profile
