@@ -14,6 +14,7 @@ import Order from "./pages/Order";
 import About from './pages/About';
 import ExplorePage from './pages/ExplorePage';
 import BlogPost from './pages/BlogPost';
+import Chatbot from './pages/Chatbot/Chatbot';
 import {useSelector } from "react-redux";
 
 function App() {
@@ -81,6 +82,10 @@ function App() {
         {
           path: "/blog/:id",
           element: <BlogPost />
+        },
+        {
+          path: "/chatbot",
+          element: <Chatbot />
         }
       ]
     },
