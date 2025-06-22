@@ -6,6 +6,7 @@ function createTransporter(config) {
   const transporter = nodemailer.createTransport(config);
   return transporter;
 }
+
 let configurations = {
   service: "gmail",
   host: "smtp.gmail.com",
@@ -18,14 +19,14 @@ let configurations = {
 };
 
 const sendMail = async (messageoption) => {
-  const transporter = await createTransporter(configurations);
-  await transporter.verify();
-  await transporter.sendMail(messageoption, (error, info) => {
-    if (error) {
-      console.log(error);
-    }
-    console.log(info.response);
-  });
+  try {
+    const transporter = await createTransporter(configurations);
+    await transporter.verify();
+    const info = await transporter.sendMail(messageoption);
+    console.log("Email sent successfully:", info.response);
+  } catch (error) {
+    console.log("Email sending failed:", error.message);
+  }
 };
 
 export default sendMail;

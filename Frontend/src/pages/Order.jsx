@@ -56,15 +56,15 @@ const Order = () => {
             <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
                 <div className="text-center mb-8">
                     <FaCheckCircle className="text-green-900 text-6xl mx-auto mb-4" />
-                    <h1 className="text-3xl font-bold">Your Orders</h1>
+                    <h1 className="text-3xl font-bold">Your Recent Order</h1>
                     <p className="text-gray-600 mt-2">
-                        Here are the details of your recent orders
+                        Here are the details of your most recent purchase
                     </p>
                 </div>
 
                 {loading ? (
                     <div className="text-center py-8">
-                        <p>Loading your orders...</p>
+                        <p>Loading your order...</p>
                     </div>
                 ) : error ? (
                     <div className="text-center py-8 text-red-600">
@@ -133,14 +133,14 @@ const Order = () => {
                 )}
 
                 <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-x1 font-semibold mb-2">Shipping Information</h3>
+                    <h3 className="text-xl font-semibold mb-2">Shipping Information</h3>
                     <p className="text-gray-600">u2108060_nabila@gmail.com</p>
                     <p className="text-gray-600">+880 1533 030 960</p>
                     <p className="text-gray-600">Nabila S.</p>
                 </div>
 
                 <div className="bg-gray-50 rounded-lg mb-6">
-                    <h3 className="text-xl font-semibold mb-2">Payement method</h3>
+                    <h3 className="text-xl font-semibold mb-2">Payment method</h3>
                     <p className="text-gray-600">VISA</p>
                 </div>
 
