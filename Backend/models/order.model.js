@@ -1,38 +1,43 @@
 import mongoose from "mongoose";
-const OrderSchema = mongoose.Schema({
+
+const OrderSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true,
+        required: true,
     },
     userId: {
         type: String,
-        require: true,
+        required: true,
     },
     products: {
         type: Array,
-        require: true,
+        required: true,
     },
     total: {
         type: Number,
-        require: true,
+        required: true,
     },
-
     address: {
         type: String,
     },
-
     phone: {
         type: String,
     },
-
     email: {
         type: String,
     },
-
     status: {
         type: Number,
         default: 0,
     },
+    sessionId: {
+        type: String,
+        required: true,
+    },
+    paid: {
+        type: Boolean,
+        default: false,
+    }
 }, {
     timestamps: true,
 });

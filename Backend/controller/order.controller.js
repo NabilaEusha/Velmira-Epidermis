@@ -41,14 +41,22 @@ const deleteOrder = asyncHandler(async(req, res) => {
 
 // GET USER ORDER
 const getUserOrder = asyncHandler(async(req, res) => {
-    const orders = await Order.find({ userId: req.params.id }).exec();
+    console.log("=== Fetching User Orders ===");
+    console.log("User ID:", req.params.id);
+    try {
+        // Get only the most recent order for the user
+        const order = await Order.findOne({ userId: req.params.id })
+            .sort({ createdAt: -1 }) // Sort by creation date, newest first
+            .exec();
 
-    // Execute the query
-    if (!orders || orders.length === 0) {
-        res.status(404);
-        throw new Error("No orders were found for this user.");
-    } else {
-        res.status(200).json(orders.reverse()); // Reverse the resulting array
+        console.log("Found order:", JSON.stringify(order, null, 2));
+
+        // Return the order in an array to maintain compatibility with frontend
+        res.status(200).json(order ? [order] : []);
+    } catch (error) {
+        console.error("Error fetching user orders:", error);
+        res.status(500);
+        throw new Error(`Error fetching orders: ${error.message}`);
     }
 });
 

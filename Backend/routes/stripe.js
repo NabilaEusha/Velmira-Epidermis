@@ -1,31 +1,26 @@
 import express from "express";
 import Stripe from "stripe";
 import dotenv from "dotenv";
-import Order from "../models/order.model.js"
+import Order from "../models/order.model.js";
+
 dotenv.config();
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_KEY);
-let cart;
-let name;
-let email;
-let userId;
 
+// Checkout Session Route
 router.post("/create-checkout-session", async(req, res) => {
-    const customer = await stripe.customers.create({
-        metadata: {
-            userId: req.body.userId
-        },
-    });
+    const { userId, name, email, cart } = req.body;
 
-    userId = req.body.userId;
-    email = req.body.email;
-    name = req.body.name;
-    cart = req.body.cart;
+    try {
+        const customer = await stripe.customers.create({
+            metadata: {
+                userId,
+                name,
+                email,
+            },
+        });
 
-
-
-    const line_items = req.body.cart.products.map((product) => {
-        return {
+        const line_items = cart.products.map((product) => ({
             price_data: {
                 currency: "usd",
                 product_data: {
@@ -36,87 +31,73 @@ router.post("/create-checkout-session", async(req, res) => {
                         id: product._id,
                     },
                 },
-                unit_amount: product.price * 100,
+                unit_amount: Math.round(product.price * 100),
             },
             quantity: product.quantity,
-        };
-    });
-    try {
+        }));
+
         const session = await stripe.checkout.sessions.create({
             customer: customer.id,
             line_items,
             mode: "payment",
-            success_url: `${process.env.CLIENT_URL}/myorders`,
+            success_url: `${process.env.CLIENT_URL}/myorders?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.CLIENT_URL}/cart`,
+        });
+
+        // Save order temporarily in your DB using session ID
+        await Order.create({
+            sessionId: session.id, // new field in your Order model
+            name,
+            userId,
+            email,
+            products: cart.products,
+            total: cart.total,
+            paid: false, // will update after payment
         });
 
         res.send({ url: session.url });
     } catch (error) {
+        console.error("Checkout Session Error:", error.message);
         res.status(500).send({ error: error.message });
     }
 });
 
-
-// web hook
-let endpointSecret;
-// This is your Stripe CLI webhook secret for testing your endpoint locally.
-//let endpointSecret = "whsec_8b4c0341b495b4e6638f7cfbe1ec731491df8027526ca7a55186af0ddd41a364"
+// Stripe Webhook
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 router.post(
     "/webhook",
     express.raw({ type: "application/json" }),
-    (req, res) => {
+    async(req, res) => {
         const sig = req.headers["stripe-signature"];
+        let event;
 
-        let data;
-        let eventType;
-
-        if (endpointSecret) {
-            let event;
-            try {
-                event = stripe.webhooks.constructEvent(
-                    req.body,
-                    sig,
-                    endpointSecret
-                );
-                console.log("webhook verified ");
-            } catch (err) {
-                console.log("webhook error", err.message);
-                response.status(400).send(`Webhook Error: ${err.message}`);
-                return;
+        try {
+            if (endpointSecret) {
+                event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+                console.log("✅ Webhook verified");
+            } else {
+                event = req.body; // For testing without secret
             }
 
-            data = event.data.object;
-            eventType = event.type;
-        } else {
-            data = req.body.data.object;
-            eventType = req.body.type;
-        }
+            const data = event.data.object;
+            const eventType = event.type;
 
-        // Handle the event
-        if (eventType === "checkout.session.completed") {
-            stripe.customers
-                .retrieve(data.customer)
-                .then(async(customer) => {
-                    const newOrder = Order({
-                        name,
-                        userId,
-                        products: cart.products,
-                        total: cart.total,
-                        email
-                    });
-                    await newOrder.save();
-                })
-                .catch((err) => {
-                    console.log(err.message);
-                });
-        }
+            if (eventType === "checkout.session.completed") {
+                const session = data;
 
-        // Return a 200 response to acknowledge receipt of the event
-        res.send().end();
+                // Update order as paid
+                await Order.findOneAndUpdate({ sessionId: session.id }, { paid: true });
+
+                console.log("✅ Order marked as paid");
+            }
+
+            res.status(200).send("Received");
+        } catch (err) {
+            console.error("❌ Webhook Error:", err.message);
+            res.status(400).send(`Webhook Error: ${err.message}`);
+        }
     }
 );
-
-
 
 export default router;

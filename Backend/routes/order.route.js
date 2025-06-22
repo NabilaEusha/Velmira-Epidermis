@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { getAllOrders, getUserOrder, deleteOrder, createOrder, updateOrder} from "../controller/order.controller.js";
+import { getAllOrders, getUserOrder, deleteOrder, createOrder, updateOrder } from "../controller/order.controller.js";
 import protect from "../Middleware/auth.middleware.js";
 
 // CREATE ORDER ROUTE
