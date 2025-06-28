@@ -14,11 +14,11 @@ function App() {
 
     const Layout = () => {
     return (
-      <div className="flex">
+      <div className="flex h-screen">
         <div>
           <Menu />
         </div>
-        <div>
+        <div className="flex-1 overflow-auto">
           <Outlet />
         </div>
       </div>

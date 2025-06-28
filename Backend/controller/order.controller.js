@@ -1,5 +1,7 @@
 import Order from "../models/order.model.js";
 import asyncHandler from "express-async-handler";
+import sendOrderConfirmationEmail from "../util/sendOrderEmail.js";
+import sendDeliveredOrderConfirmationEmail from "../util/sendDeliveredOrderEmail.js";
 
 // CREATE ORDER
 const createOrder = asyncHandler(async(req, res) => {
@@ -9,7 +11,64 @@ const createOrder = asyncHandler(async(req, res) => {
         res.status(400);
         throw new Error("Order was not created");
     } else {
+        // Send immediate order confirmation email
+        try {
+            const emailSent = await sendOrderConfirmationEmail(savedOrder);
+            if (emailSent) {
+                console.log(`Order confirmation email sent to ${savedOrder.email}`);
+                // Mark pending email as sent
+                await Order.findByIdAndUpdate(savedOrder._id, { pendingEmailSent: true });
+            } else {
+                console.log(`Failed to send order confirmation email to ${savedOrder.email}`);
+            }
+        } catch (error) {
+            console.error("Error sending order confirmation email:", error.message);
+            if (error.message.includes("Email credentials not found")) {
+                console.error("Please set up EMAIL and PASSWORD environment variables in Backend/.env file");
+            }
+            // Don't fail the order creation if email fails
+        }
+
         res.status(201).json(savedOrder);
+    }
+});
+
+// MARK ORDER AS DELIVERED
+const markOrderAsDelivered = asyncHandler(async(req, res) => {
+    const { orderId } = req.params;
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+        orderId, { $set: { status: 2 } }, // status 2 = delivered
+        { new: true }
+    );
+
+    if (!updatedOrder) {
+        res.status(400);
+        throw new Error("Order was not found or could not be updated");
+    } else {
+        // Send immediate delivered order confirmation email only if not already sent
+        if (!updatedOrder.deliveredEmailSent) {
+            try {
+                const emailSent = await sendDeliveredOrderConfirmationEmail(updatedOrder);
+                if (emailSent) {
+                    console.log(`Delivered order confirmation email sent to ${updatedOrder.email}`);
+                    // Mark delivered email as sent
+                    await Order.findByIdAndUpdate(updatedOrder._id, { deliveredEmailSent: true });
+                } else {
+                    console.log(`Failed to send delivered order confirmation email to ${updatedOrder.email}`);
+                }
+            } catch (error) {
+                console.error("Error sending delivered order confirmation email:", error.message);
+                if (error.message.includes("Email credentials not found")) {
+                    console.error("Please set up EMAIL and PASSWORD environment variables in Backend/.env file");
+                }
+                // Don't fail the order update if email fails
+            }
+        } else {
+            console.log(`Delivered email already sent to ${updatedOrder.email}`);
+        }
+
+        res.status(200).json(updatedOrder);
     }
 });
 
@@ -73,4 +132,4 @@ const getAllOrders = asyncHandler(async(req, res) => {
     }
 });
 
-export { getAllOrders, getUserOrder, deleteOrder, createOrder, updateOrder };
+export { getAllOrders, getUserOrder, deleteOrder, createOrder, updateOrder, markOrderAsDelivered };

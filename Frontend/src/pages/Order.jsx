@@ -97,7 +97,7 @@ const Order = () => {
                                                         <p className="text-gray-600">{product.quantity}</p>
                                                     </div>
                                                     <div className="text-right">
-                                                        <p className="text-lg font-bold">${product.price}</p>
+                                                        <p className="text-lg font-bold">${product.price.toFixed(2)}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col">
@@ -146,18 +146,22 @@ const Order = () => {
 
                 <div className="bg-gray-50 rounded-lg">
                     <h3 className="text-xl font-semibold mb-2">Order Summary</h3>
-                    <div className="flex justify-between mb-2">
-                        <span className="text-lg font-medium">Subtotal</span>
-                        <span className="text-lg font-semibold">$720</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="text-lg font-medium">Shipping</span>
-                        <span className="text-lg font-semibold">$10</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                        <span className="text-lg font-medium">Total</span>
-                        <span className="text-lg font-semibold">$730</span>
-                    </div>
+                    {orders.length > 0 && (
+                        <>
+                            <div className="flex justify-between mb-2">
+                                <span className="text-lg font-medium">Subtotal</span>
+                                <span className="text-lg font-semibold">${orders[0].total.toFixed(2)}</span>
+                            </div>
+                            <div className="flex justify-between mb-2">
+                                <span className="text-lg font-medium">Shipping</span>
+                                <span className="text-lg font-semibold">$10.00</span>
+                            </div>
+                            <div className="flex justify-between mb-2">
+                                <span className="text-lg font-medium">Total</span>
+                                <span className="text-lg font-semibold">${(orders[0].total + 10).toFixed(2)}</span>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 <div className="mt-8 text-center">
