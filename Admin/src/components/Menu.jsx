@@ -1,14 +1,10 @@
 import {
   FaBox,
-  FaChartBar,
-  FaClipboard,
   FaClipboardList,
-  FaCog,
   FaElementor,
-  FaHdd,
   FaHome,
-  FaSignOutAlt,
-  FaUser,
+  FaPlus,
+  FaUpload,
   FaUsers,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -31,10 +27,6 @@ const Menu = () => {
           Home
         </li>
         </Link>
-        <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
-          <FaUser className="text-[#2b4b6b]" />
-          Profile
-        </li>
 
         {/* Section Divider */}
         <hr className="my-4 border-gray-300" />
@@ -63,42 +55,20 @@ const Menu = () => {
         {/* Section Divider */}
         <hr className="my-4 border-gray-300" />
 
-        {/* Section: Tools */}
-        <p className="text-gray-400 uppercase text-xs px-2">Tools</p>
-        <Link to="/banners">
+        {/* Section: Upload */}
+        <p className="text-gray-400 uppercase text-xs px-2">Upload</p>
+        <Link to="/newproduct">
           <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
-            <FaElementor className="text-[#2b4b6b]" />
-            Banners
+            <FaPlus className="text-[#2b4b6b]" />
+            Add Product
           </li>
         </Link>
-        <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
-          <FaCog className="text-[#2b4b6b]" />
-          Settings
-        </li>
-        <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
-          <FaHdd className="text-[#2b4b6b]" />
-          Backups
-        </li>
-
-        {/* Section Divider */}
-        <hr className="my-4 border-gray-300" />
-
-        {/* Section: Reports */}
-        <p className="text-gray-400 uppercase text-xs px-2">Reports</p>
-        <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
-          <FaChartBar className="text-[#2b4b6b]" />
-          Charts
-        </li>
-        <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
-          <FaClipboard className="text-[#2b4b6b]" />
-          All logs
-        </li>
-
-        {/* Logout */}
-        <li className="flex items-center gap-4 text-[18px] text-red-600 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-red-100">
-          <FaSignOutAlt />
-          Logout
-        </li>
+        <Link to="/banners">
+          <li className="flex items-center gap-4 text-[18px] text-gray-700 font-medium px-4 py-1 rounded-lg cursor-pointer transition-all duration-200 hover:bg-[#2b4b6b] hover:text-white">
+            <FaUpload className="text-[#2b4b6b]" />
+            Manage Banners
+          </li>
+        </Link>
       </ul>
     </div>
   );

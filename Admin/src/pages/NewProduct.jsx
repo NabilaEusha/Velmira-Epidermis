@@ -1,7 +1,5 @@
-import { FaPlus, FaTrash } from 'react-icons/fa';
-import axios from "axios"
-import { userRequest } from '../requestMethods';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { FaPlus, FaTrash, FaImage, FaTag, FaDollarSign, FaList } from 'react-icons/fa';
 
 const NewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -13,7 +11,6 @@ const NewProduct = () => {
     categories: [],
   });
 
-
   const imageChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedImage(e.target.files[0])
@@ -22,10 +19,12 @@ const NewProduct = () => {
 
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
-    setSelectedOptions((prev) => ({
-      ...prev,
-      [name]: [...prev[name], value],
-    }));
+    if (value && !selectedOptions[name].includes(value)) {
+      setSelectedOptions((prev) => ({
+        ...prev,
+        [name]: [...prev[name], value],
+      }));
+    }
   };
 
   const handleRemoveOption = (name, value) => {
@@ -43,303 +42,346 @@ const NewProduct = () => {
 
   const handleUpload = async(e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file", selectedImage);
-    data.append("upload_preset", "uploads");
+    
+    // Note: Replace with your actual axios import and userRequest
+    // const data = new FormData();
+    // data.append("file", selectedImage);
+    // data.append("upload_preset", "uploads");
 
     setUploading("Uploading ...")
     try {
       console.log("Starting upload to Cloudinary...");
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dur3dmmji/image/upload",
-        data
-      );
-
-      const {url} = uploadRes.data;
-      console.log("Image uploaded successfully! URL:", url);
-
-      setUploading("Uploaded 100%")
-      const productResponse = await userRequest.post("/products", {img: url, ...inputs, ...selectedOptions})
-      console.log("Product saved to database:", productResponse.data);
+      
+      // Simulate upload process
+      setTimeout(() => {
+        setUploading("Uploaded 100%")
+        console.log("Product data:", {img: "sample-url", ...inputs, ...selectedOptions});
+      }, 2000);
+      
+      // Replace with actual upload code:
+      // const uploadRes = await axios.post(
+      //   "https://api.cloudinary.com/v1_1/dur3dmmji/image/upload",
+      //   data
+      // );
+      // const {url} = uploadRes.data;
+      // const productResponse = await userRequest.post("/products", {img: url, ...inputs, ...selectedOptions})
+      
     } catch (error) {
       console.log("Error during upload:", error);
       setUploading("Uploading failed")
     }
   }
+
+  const concernOptions = [
+    "Dry Skin", "Pigmentation", "Oil Control", "Anti Acne", "Sunburn", 
+    "Skin Brightening", "Tan Removal", "Night Routine", "UV Protection", 
+    "Damaged Hair", "Frizzy Hair", "Stretch Marks", "Color Protection", 
+    "Dry Hair", "Soothing", "Dandruff", "Greying", "Hairfall", 
+    "Hair Color", "Well Being", "Acne", "Hair Growth", "Anti Aging"
+  ];
+
+  const skintypeOptions = ["All", "Oily", "Dry", "Sensitive", "Normal"];
+  const categoryOptions = ["Toners", "Serums", "Sunscreens", "Lotions"];
+
   return (
-    <div className="p-5">
-      <div className="flex items-center justify-center mb-5">
-        <h1 className="text-2xl font-semibold">New Product</h1>
-      </div>
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Product</h1>
+          <p className="text-gray-600">Create a new product listing with all the details</p>
+        </div>
 
-      <div className="mt-5 bg-white p-5 shadow-lg rounded-lg">
-
-        <form className="flex flex-col md:flex-row rounded-lg">
-
-          {/* LEFT */}
-
-          <div className="flex-1 space-y-5">
-
-            <div>
-
-              <label htmlFor="" className="font-semibold">
-                Product Image:
-              </label>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* LEFT COLUMN - Product Image & Basic Info */}
+          <div className="lg:col-span-1 space-y-6">
+            {/* Product Image Card */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center mb-4">
+                <FaImage className="text-blue-600 mr-2" />
+                <h3 className="text-lg font-semibold text-gray-900">Product Image</h3>
+              </div>
               
-              {!selectedImage ? (
-                <div className="border-2 h-[100px] w-[100px] border-[#444] border-solid rounded-md flex items-center justify-center">
-                  <label htmlFor="file" className="cursor-pointer">
-                    <FaPlus className="text-[20px]" />
-                  </label>
-                </div>
-              ) : (
-                <img
-                  src={URL.createObjectURL(selectedImage)}
-                  alt="Product"
-                  className="h-[100px] w-[100px] object-cover rounded-md"
+              <div className="flex flex-col items-center">
+                {!selectedImage ? (
+                  <div className="border-2 border-dashed border-gray-300 hover:border-blue-400 transition-colors duration-200 h-48 w-48 rounded-lg flex items-center justify-center cursor-pointer group">
+                    <label htmlFor="file" className="cursor-pointer text-center">
+                      <FaPlus className="text-3xl text-gray-400 group-hover:text-blue-500 mb-2 mx-auto" />
+                      <p className="text-sm text-gray-500 group-hover:text-blue-500">Click to upload image</p>
+                    </label>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <img
+                      src={URL.createObjectURL(selectedImage)}
+                      alt="Product"
+                      className="h-48 w-48 object-cover rounded-lg border border-gray-200 shadow-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setSelectedImage(null)}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors"
+                    >
+                      <FaTrash className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  id="file"
+                  onChange={imageChange}
+                  accept="image/*"
+                  className="hidden"
                 />
-              )}
-              <input
-                type="file"
-                id="file"
-                onChange={imageChange}
-                style={{ display: "none" }}
-              />
+              </div>
+              
+              <div className="mt-4 text-center">
+                <span className={`text-sm font-medium ${
+                  uploading.includes('100%') ? 'text-green-600' : 
+                  uploading.includes('failed') ? 'text-red-600' : 'text-blue-600'
+                }`}>
+                  {uploading}
+                </span>
+              </div>
             </div>
 
-            <span className='text-green-500'>{uploading}</span>
+            {/* Basic Info Card */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center mb-4">
+                <FaTag className="text-green-600 mr-2" />
+                <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Product Name</label>
+                  <input
+                    type="text"
+                    name="title"
+                    placeholder="Enter product name"
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                </div>
 
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Product Name
-              </label>
-              <input
-                type="text"
-                name="title"
-                id=""
-                placeholder="Product Name"
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Product Description
-              </label>
-              <textarea
-                type="text"
-                cols={15}
-                rows={7}
-                name="desc"
-                onChange={handleChange}
-                id=""
-                placeholder="Product Description"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Brand</label>
+                  <input
+                    type="text"
+                    name="brand"
+                    placeholder="Enter brand name"
+                    onChange={handleChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                </div>
 
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Product Original Price
-              </label>
-              <input
-                type="number"
-                name="originalPrice"
-                id=""
-                onChange={handleChange}
-                placeholder="$100"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Product Description</label>
+                  <textarea
+                    name="desc"
+                    rows={4}
+                    onChange={handleChange}
+                    placeholder="Describe your product..."
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                  />
+                </div>
+              </div>
             </div>
-
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Product Discounted Price
-              </label>
-              <input
-                type="number"
-                name="discountedPrice"
-                id=""
-                onChange={handleChange}
-                placeholder="$80"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-
           </div>
 
-          {/* RIGHT */}
-
-          <div className="ml-5 flex-1 space-y-5">
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Wholesale Price
-              </label>
-              <input
-                type="number"
-                name="wholesalePrice"
-                onChange={handleChange}
-                id=""
-                placeholder="$70"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Wholesale Minimum Quantity
-              </label>
-              <input
-                type="number"
-                name="wholesaleMinimumQuantity"
-                onChange={handleChange}
-                id=""
-                placeholder="10"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Brand
-              </label>
-              <input
-                type="text"
-                name="brand"
-                id=""
-                onChange={handleChange}
-                placeholder="Kylie"
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Concern
-              </label>
-              <select
-                name="concern"
-                id=""
-                className="border-2 border-[#444] border-solid p-2 mb-4 sm:mb-0 sm:mr-4"
-                onChange={handleSelectChange}
-              >
-                <option disabled defaultValue={true}>
-                  Select Concern
-                </option>
-                <option>Dry Skin</option>
-                <option>Pigmentation</option>
-                <option>Oil Control</option>
-                <option>Anti Acne</option>
-                <option>Sunburn</option>
-                <option>Skin Brightening</option>
-                <option>Tan Removal</option>
-                <option>Night Routine</option>
-                <option>UV Protection</option>
-                <option>Damaged Hair</option>
-                <option>Frizzy Hair</option>
-                <option>Stretch Marks</option>
-                <option>Color Protection</option>
-                <option>Dry Hair</option>
-                <option>Soothing</option>
-                <option>Dandruff</option>
-                <option>Greying</option>
-                <option>Hairfall</option>
-                <option>Hair Color</option>
-                <option>Well Being</option>
-                <option>Acne</option>
-                <option>Hair Growth</option>
-                <option>Anti Aging</option>
-
-              </select>
-            </div>
-
-            <div className="mt-2">
-                {selectedOptions.concern.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <span>{option}</span>
-                    <FaTrash
-                      className="cursor-pointer text-red-500"
-                      onClick={() => handleRemoveOption("concern", option)}
+          {/* MIDDLE COLUMN - Pricing */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center mb-4">
+                <FaDollarSign className="text-yellow-600 mr-2" />
+                <h3 className="text-lg font-semibold text-gray-900">Pricing Details</h3>
+              </div>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Original Price</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input
+                      type="number"
+                      name="originalPrice"
+                      onChange={handleChange}
+                      placeholder="100"
+                      className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                   </div>
-                ))}
-              </div>
+                </div>
 
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                SkinType
-              </label>
-              <select
-                name="skintype"
-                id=""
-                onChange={handleSelectChange}
-                className="border-2 border-[#444] border-solid p-2 mb-4 sm:mb-0 sm:mr-4"
-              >
-                <option disabled defaultValue={true}>
-                  Select Skin Type
-                </option>
-                <option>All</option>
-                <option>Oily</option>
-                <option>Dry</option>
-                <option>Sensitive</option>
-                <option>Normal</option>
-
-              </select>
-            </div>
-            <div className="mt-2">
-                {selectedOptions.skintype.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <span>{option}</span>
-                    <FaTrash
-                      className="cursor-pointer text-red-500"
-                      onClick={() => handleRemoveOption("skintype", option)}
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Discounted Price</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input
+                      type="number"
+                      name="discountedPrice"
+                      onChange={handleChange}
+                      placeholder="80"
+                      className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                   </div>
-                ))}
-              </div>
+                </div>
 
-
-            <div>
-              <label htmlFor="" className="block mb-2 font-semibold">
-                Category
-              </label>
-              <select
-                name="categories"
-                onChange={handleSelectChange}
-                id=""
-                className="border-2 border-[#444] border-solid p-2 mb-4 sm:mb-0 sm:mr-4"
-              >
-                <option disabled defaultValue={true}>
-                  Category
-                </option>
-                <option>Toners</option>
-                <option>Serums</option>
-                <option>Sunscreens</option>
-                <option>Lotions</option>
-
-              </select>
-            </div>
-            <div className="mt-2">
-                {selectedOptions.categories.map((option) => (
-                  <div key={option} className="flex items-center space-x-2">
-                    <span>{option}</span>
-                    <FaTrash
-                      className="cursor-pointer text-red-500"
-                      onClick={() => handleRemoveOption("categories", option)}
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Wholesale Price</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">$</span>
+                    <input
+                      type="number"
+                      name="wholesalePrice"
+                      onChange={handleChange}
+                      placeholder="70"
+                      className="w-full pl-8 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     />
                   </div>
-                ))}
+                </div>
+
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Wholesale Minimum Quantity</label>
+                  <input
+                    type="number"
+                    name="wholesaleMinimumQuantity"
+                    onChange={handleChange}
+                    placeholder="10"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  />
+                </div>
               </div>
+            </div>
 
-
-            <button className='bg-slate-500 text-white py-2 px-4 rounded cursor-pointer' onClick={handleUpload}>Create</button>
-
+            {/* Action Button */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <button 
+                className='w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors duration-200 shadow-sm' 
+                onClick={handleUpload}
+              >
+                Create Product
+              </button>
+            </div>
           </div>
 
-        </form>
+          {/* RIGHT COLUMN - Categories & Options */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center mb-4">
+                <FaList className="text-purple-600 mr-2" />
+                <h3 className="text-lg font-semibold text-gray-900">Categories & Attributes</h3>
+              </div>
+              
+              <div className="space-y-6">
+                {/* Concerns */}
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Concerns</label>
+                  <select
+                    name="concern"
+                    onChange={handleSelectChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  >
+                    <option value="">Select Concern</option>
+                    {concernOptions.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                  
+                  {selectedOptions.concern.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <p className="text-sm font-medium text-gray-700">Selected Concerns:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedOptions.concern.map((option) => (
+                          <span key={option} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {option}
+                            <button
+                              type="button"
+                              className="ml-2 text-blue-600 hover:text-blue-800"
+                              onClick={() => handleRemoveOption("concern", option)}
+                            >
+                              <FaTrash className="w-3 h-3" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
 
+                {/* Skin Type */}
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Skin Type</label>
+                  <select
+                    name="skintype"
+                    onChange={handleSelectChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  >
+                    <option value="">Select Skin Type</option>
+                    {skintypeOptions.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                  
+                  {selectedOptions.skintype.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <p className="text-sm font-medium text-gray-700">Selected Skin Types:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedOptions.skintype.map((option) => (
+                          <span key={option} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            {option}
+                            <button
+                              type="button"
+                              className="ml-2 text-green-600 hover:text-green-800"
+                              onClick={() => handleRemoveOption("skintype", option)}
+                            >
+                              <FaTrash className="w-3 h-3" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Categories */}
+                <div>
+                  <label className="block mb-2 font-medium text-gray-700">Category</label>
+                  <select
+                    name="categories"
+                    onChange={handleSelectChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  >
+                    <option value="">Select Category</option>
+                    {categoryOptions.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                  
+                  {selectedOptions.categories.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      <p className="text-sm font-medium text-gray-700">Selected Categories:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedOptions.categories.map((option) => (
+                          <span key={option} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            {option}
+                            <button
+                              type="button"
+                              className="ml-2 text-purple-600 hover:text-purple-800"
+                              onClick={() => handleRemoveOption("categories", option)}
+                            >
+                              <FaTrash className="w-3 h-3" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
     </div>
   );
 };

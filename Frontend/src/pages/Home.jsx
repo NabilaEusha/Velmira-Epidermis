@@ -16,8 +16,8 @@ const Home = () => {
     <div>
       <Banner />
       <Category />
-      {/* <ChatbotShowcase onStartChat={handleStartChat} /> */}
-      {/* <ExploreSection /> */}
+      <ChatbotShowcase onStartChat={handleStartChat} />
+      <ExploreSection />
       {/* <Products /> */}
     </div>
   )

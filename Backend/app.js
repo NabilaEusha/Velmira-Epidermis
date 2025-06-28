@@ -9,6 +9,7 @@ import userRoute from "./routes/user.route.js"
 import orderRoute from "./routes/order.route.js"
 import stripeRoute from "./routes/stripe.js"
 
+
 const app = express();
 
 //cors
@@ -27,6 +28,7 @@ app.use("/api/v1/banners", bannerRoute)
 app.use("/api/v1/users", userRoute)
 app.use("/api/v1/orders", orderRoute)
 app.use("/api/v1/stripe", stripeRoute)
+
 
 // Error middleware
 app.use(notFound);
