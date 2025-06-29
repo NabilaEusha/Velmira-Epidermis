@@ -1,10 +1,12 @@
 import express from "express";
 const router = express.Router();
 import {
-  createBanner,
-  getAllBanners,
-  getRandomBanner,
-  deleteBanner,
+    createBanner,
+    getAllBanners,
+    getRandomBanner,
+    deleteBanner,
+    updateBannerOrder,
+    toggleBannerStatus,
 } from "../controller/banner.controller.js";
 
 // CREATE BANNER ROUTE
@@ -14,8 +16,13 @@ router.post("/", createBanner);
 router.get("/", getAllBanners);
 
 // DELETE BANNER ROUTE
-
 router.delete("/:id", deleteBanner);
+
+// UPDATE BANNER ORDER ROUTE
+router.put("/order", updateBannerOrder);
+
+// TOGGLE BANNER STATUS ROUTE
+router.put("/:bannerId/toggle", toggleBannerStatus);
 
 // GET RANDOM BANNER ROUTE
 router.get("/random", getRandomBanner);

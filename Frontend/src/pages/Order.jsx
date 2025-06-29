@@ -3,6 +3,8 @@ import StarRatings from "react-star-ratings";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 
 const Order = () => {
     const user = useSelector((state) => state.user);
@@ -165,9 +167,11 @@ const Order = () => {
                 </div>
 
                 <div className="mt-8 text-center">
+                    <Link to="/products">
                     <button className="bg-[#4b4924] text-white p-3 rounded-lg font-semibold cursor-pointer">
                         Continue Shopping
                     </button>
+                    </Link>
                 </div>
             </div>
         </div>
