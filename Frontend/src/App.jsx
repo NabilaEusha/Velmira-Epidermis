@@ -15,10 +15,22 @@ import About from './pages/About';
 import ExplorePage from './pages/ExplorePage';
 import BlogPost from './pages/BlogPost';
 import Chatbot from './pages/Chatbot/Chatbot';
-import {useSelector } from "react-redux";
+import {useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { resetCart } from "./redux/cartRedux";
 
 function App() {
   const user = useSelector((state) => state.user);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  // Validate cart state and reset if corrupted
+  useEffect(() => {
+    if (cart.quantity < 0 || (cart.products.length === 0 && cart.quantity !== 0)) {
+      dispatch(resetCart());
+    }
+  }, [cart.quantity, cart.products.length, dispatch]);
+
   const Layout = () => {
     return (
       <div>
