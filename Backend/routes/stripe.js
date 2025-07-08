@@ -45,30 +45,42 @@ router.post("/create-checkout-session", async(req, res) => {
             cancel_url: `${process.env.CLIENT_URL}/cart`,
         });
 
-        // Save order temporarily in your DB using session ID
-        const savedOrder = await Order.create({
-            sessionId: session.id, // new field in your Order model
-            name,
-            userId,
-            email,
-            products: cart.products,
-            total: cart.total,
-            paid: false, // will update after payment
-        });
+        // Generate a unique key for this order (userId + cart hash)
+        const orderKey = `${userId}-${Buffer.from(JSON.stringify(cart.products)).toString('base64')}`;
 
-        // Send immediate order confirmation email
-        try {
-            const emailSent = await sendOrderConfirmationEmail(savedOrder);
-            if (emailSent) {
-                console.log(`Order confirmation email sent to ${savedOrder.email} via Stripe checkout`);
-                // Mark pending email as sent
-                await Order.findByIdAndUpdate(savedOrder._id, { pendingEmailSent: true });
-            } else {
-                console.log(`Failed to send order confirmation email to ${savedOrder.email} via Stripe checkout`);
+        // Try to find an existing unpaid order for this user and cart
+        let savedOrder = await Order.findOne({ orderKey, paid: false });
+
+        if (!savedOrder) {
+            savedOrder = await Order.create({
+                sessionId: session.id,
+                orderKey,
+                name,
+                userId,
+                email,
+                products: cart.products,
+                total: cart.total,
+                paid: false, // will update after payment
+            });
+
+            // Send immediate order confirmation email
+            try {
+                const emailSent = await sendOrderConfirmationEmail(savedOrder);
+                if (emailSent) {
+                    console.log(`Order confirmation email sent to ${savedOrder.email} via Stripe checkout`);
+                    // Mark pending email as sent
+                    await Order.findByIdAndUpdate(savedOrder._id, { pendingEmailSent: true });
+                } else {
+                    console.log(`Failed to send order confirmation email to ${savedOrder.email} via Stripe checkout`);
+                }
+            } catch (error) {
+                console.error("Error sending order confirmation email via Stripe:", error.message);
+                // Don't fail the checkout if email fails
             }
-        } catch (error) {
-            console.error("Error sending order confirmation email via Stripe:", error.message);
-            // Don't fail the checkout if email fails
+        } else {
+            // If an order already exists, update its sessionId in case it's a new session
+            savedOrder.sessionId = session.id;
+            await savedOrder.save();
         }
 
         res.send({ url: session.url });

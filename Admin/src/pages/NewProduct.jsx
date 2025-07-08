@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { FaPlus, FaTrash, FaImage, FaTag, FaDollarSign, FaList } from 'react-icons/fa';
+import axios from 'axios';
+import { userRequest } from '../requestMethods.js';
 
 const NewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -43,37 +45,61 @@ const NewProduct = () => {
   const handleUpload = async(e) => {
     e.preventDefault();
     
-    // Note: Replace with your actual axios import and userRequest
-    // const data = new FormData();
-    // data.append("file", selectedImage);
-    // data.append("upload_preset", "uploads");
+    if (!selectedImage) {
+      alert("Please select an image");
+      return;
+    }
 
     setUploading("Uploading ...")
     try {
       console.log("Starting upload to Cloudinary...");
       
-      // Simulate upload process
-      setTimeout(() => {
-        setUploading("Uploaded 100%")
-        console.log("Product data:", {img: "sample-url", ...inputs, ...selectedOptions});
-      }, 2000);
+      // Upload image to Cloudinary
+      const data = new FormData();
+      data.append("file", selectedImage);
+      data.append("upload_preset", "uploads");
+
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dur3dmmji/image/upload",
+        data
+      );
       
-      // Replace with actual upload code:
-      // const uploadRes = await axios.post(
-      //   "https://api.cloudinary.com/v1_1/dur3dmmji/image/upload",
-      //   data
-      // );
-      // const {url} = uploadRes.data;
-      // const productResponse = await userRequest.post("/products", {img: url, ...inputs, ...selectedOptions})
+      const { url } = uploadRes.data;
+      console.log("Image uploaded successfully:", url);
+      
+      // Create product in database
+      const productData = {
+        img: url,
+        ...inputs,
+        ...selectedOptions
+      };
+      
+      console.log("Creating product with data:", productData);
+      const productResponse = await userRequest.post("/products", productData);
+      
+      console.log("Product created successfully:", productResponse.data);
+      setUploading("Uploaded 100%");
+      
+      // Reset form
+      setSelectedImage(null);
+      setInputs({});
+      setSelectedOptions({
+        concern: [],
+        skintype: [],
+        categories: [],
+      });
+      
+      alert("Product created successfully!");
       
     } catch (error) {
       console.log("Error during upload:", error);
-      setUploading("Uploading failed")
+      setUploading("Uploading failed");
+      alert("Error creating product: " + (error.response?.data?.message || error.message));
     }
   }
 
   const concernOptions = [
-    "Dry Skin", "Pigmentation", "Oil Control", "Anti Acne", "Sunburn", 
+    "Dry Skin", "Pigmentation", "Oil Control", "Cleansing", "Anti Acne", "Sunburn", 
     "Skin Brightening", "Tan Removal", "Night Routine", "UV Protection", 
     "Damaged Hair", "Frizzy Hair", "Stretch Marks", "Color Protection", 
     "Dry Hair", "Soothing", "Dandruff", "Greying", "Hairfall", 

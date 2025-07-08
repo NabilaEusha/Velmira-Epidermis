@@ -49,6 +49,11 @@ const OrderSchema = new mongoose.Schema({
     deliveredEmailSent: {
         type: Boolean,
         default: false,
+    },
+    orderKey: {
+        type: String,
+        required: false,
+        index: true,
     }
 }, {
     timestamps: true,

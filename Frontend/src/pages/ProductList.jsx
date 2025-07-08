@@ -90,16 +90,22 @@ const ProductList = () => {
                     onChange={handleFilters}
                   >
                     <option value="">Select brand</option>
-                    <option>Garnier</option>
-                    <option>Kylie</option>
-                    <option>Kiss Beauty</option>
-                    <option>Dr Rashel</option>
-                    <option>Luron</option>
+                     <option>Beauty of Joseon</option>
+                    <option>The Ordinary</option>
+                    <option>Isntree</option>
+                    <option>La Roche-Posay</option>
+                    <option>CeraVe</option>
+                    <option>Aveeno</option>
+                    <option>COSRX</option>
+                    <option>Skin1004</option>
+                    <option>Cetaphil</option>
+                    <option>Paula’s Choice</option>
                     <option>Nivea</option>
-                    <option>Heaven Dove</option>
-                    <option>Disaar</option>
+                    <option>Eucerin</option>
+                    <option>Neutrogena</option>
                     <option>Johnsons Baby</option>
-                    <option>Rexona</option>
+                    <option>Anua</option>
+
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
                     <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
