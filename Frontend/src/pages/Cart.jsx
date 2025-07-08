@@ -67,7 +67,7 @@ const Cart = () => {
           <p className="text-gray-500 mb-6">Add some items to get started</p>
           <button
             onClick={() => window.location.href = '/products'}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+            className="bg-[#646515] hover:bg-[#78914d] text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
           >
             Continue Shopping
           </button>
