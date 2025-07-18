@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaPlus, FaTrash, FaImage, FaTag, FaDollarSign, FaList } from 'react-icons/fa';
 import axios from 'axios';
 import { userRequest } from '../requestMethods.js';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -89,7 +91,15 @@ const NewProduct = () => {
         categories: [],
       });
       
-      alert("Product created successfully!");
+      toast.success("Product created successfully!");
+      // Instantly reset form fields
+      setSelectedImage(null);
+      setInputs({});
+      setSelectedOptions({
+        concern: [],
+        skintype: [],
+        categories: [],
+      });
       
     } catch (error) {
       console.log("Error during upload:", error);
@@ -111,6 +121,7 @@ const NewProduct = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
+      <ToastContainer position="top-right" />
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">

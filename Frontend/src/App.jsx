@@ -18,6 +18,7 @@ import Chatbot from './pages/Chatbot/Chatbot';
 import {useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { resetCart } from "./redux/cartRedux";
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   const user = useSelector((state) => state.user);
@@ -98,6 +99,10 @@ function App() {
         {
           path: "/chatbot",
           element: <Chatbot />
+        },
+        {
+          path: "/reset-password",
+          element: <ResetPassword />
         }
       ]
     },

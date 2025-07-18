@@ -2,12 +2,15 @@ import { FaCheckCircle } from "react-icons/fa";
 import StarRatings from "react-star-ratings";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { resetCart } from "../redux/cartRedux";
+import { Link, useLocation } from "react-router-dom";
 
 
 const Order = () => {
     const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const location = useLocation();
     const [orders, setOrders] = useState([]);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
@@ -26,6 +29,14 @@ const Order = () => {
                 setError(null);
                 const res = await userRequest.get(`/orders/find/${user.currentUser._id}`);
                 setOrders(res.data);
+                // Only reset cart if redirected from Stripe (session_id in URL)
+                const params = new URLSearchParams(location.search);
+                if (params.has('session_id')) {
+                    dispatch(resetCart());
+                    // Remove session_id from URL so it doesn't reset again on refresh
+                    params.delete('session_id');
+                    window.history.replaceState({}, '', location.pathname + (params.toString() ? '?' + params.toString() : ''));
+                }
             } catch (error) {
                 console.error("Error fetching orders:", error);
                 setError("Failed to load orders. Please try again later.");
@@ -35,7 +46,7 @@ const Order = () => {
         };
 
         getUserOrder();
-    }, [user]);
+    }, [user, dispatch, location]);
 
     const handleRating = async(id) =>{
         const singleRating = {
@@ -129,17 +140,18 @@ const Order = () => {
                                         ))}
                                     </div>
                                 </div>
+                                {/* Shipping Information for this order */}
+                                <div className="bg-gray-50 p-6 rounded-lg mt-4">
+                                    <h3 className="text-xl font-semibold mb-2">Shipping Information</h3>
+                                    {order.email && <p className="text-gray-600">{order.email}</p>}
+                                    {order.phone && <p className="text-gray-600">{order.phone}</p>}
+                                    {order.name && <p className="text-gray-600">{order.name}</p>}
+                                    {order.address && <p className="text-gray-600">{order.address}</p>}
+                                </div>
                             </div>
                         </div>
                     ))
                 )}
-
-                <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-xl font-semibold mb-2">Shipping Information</h3>
-                    <p className="text-gray-600">u2108060_nabila@gmail.com</p>
-                    <p className="text-gray-600">+880 1533 030 960</p>
-                    <p className="text-gray-600">Nabila S.</p>
-                </div>
 
                 <div className="bg-gray-50 rounded-lg mb-6">
                     <h3 className="text-xl font-semibold mb-2">Payment method</h3>

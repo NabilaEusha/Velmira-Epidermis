@@ -7,13 +7,11 @@ import { useEffect, useState } from 'react';
 
 const Products = () => {
 
- 
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() =>{
-   
     const getProducts = async() =>{
-
       try {
       const res = await userRequest.get("/products");
       setProducts(res.data)
@@ -24,7 +22,19 @@ const Products = () => {
     getProducts();
   },[])
 
-  
+  // Add product delete handler
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await userRequest.delete(`/products/${id}`);
+        setProducts(products.filter((item) => item._id !== id));
+      } catch (error) {
+        console.log(error);
+        alert("Failed to delete product");
+      }
+    }
+  };
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     {
@@ -35,13 +45,13 @@ const Products = () => {
         return (
           <div className="flex items-center">
             <img
-              className="h-12 w-12 rounded-full object-cover mr-2"
+              className="h-12 w-12 rounded-full object-cover mr-2 border"
               src={params.row.img}
               alt=""
               height="100px"
               width="100px"
             />
-            {params.row.title}
+            <span className="font-semibold text-gray-800">{params.row.title}</span>
           </div>
         );
       },
@@ -56,10 +66,8 @@ const Products = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/product/${params.id}`}>
-              <button className="bg-gray-400 text-white cursor-pointer w-[70px]">
-                Edit
-              </button>
+            <Link to={`/product/${params.row._id}`}>
+              <button className="bg-blue-500 hover:bg-blue-600 text-white cursor-pointer w-[70px] rounded shadow font-semibold transition-colors">Edit</button>
             </Link>
           </>
         );
@@ -69,30 +77,46 @@ const Products = () => {
       field: "delete",
       headerName: "Delete",
       width: 100,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <>
-            <FaTrash className="text-red-500 cursor-pointer m-2" />
+            <FaTrash className="text-red-500 cursor-pointer m-2 hover:text-red-700 transition-colors" onClick={() => handleDelete(params.row._id)} />
           </>
         );
       },
     },
   ];
 
-  return (
-    <div className="p-5 w-[70vw]">
-      <div className="flex items-center justify-between m-[30px]">
-        <h1 className="m-[20px] text-[20px]">All Products</h1>
-         <Link to="/newproduct">
-        <button className="bg-[#1e1e1e] p-[10px] font-semibold text-white cursor-pointer">
-          Create
-        </button>
-        </Link>
-      </div>
-      <div className='m-[30px]'>
-      <DataGrid getRowId={(row) => row._id} rows={products} checkboxSelection columns={columns} />
-      </div>
+  // Filter products by search
+  const filteredProducts = products.filter((product) =>
+    product.title?.toLowerCase().includes(search.toLowerCase()) ||
+    product.desc?.toLowerCase().includes(search.toLowerCase())
+  );
 
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 py-10 px-4 flex justify-center">
+      <div className="w-full max-w-6xl">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Product Management</h1>
+          <Link to="/newproduct">
+            <button className="bg-blue-600 hover:bg-blue-700 transition-colors px-6 py-2 rounded-lg text-white font-semibold shadow">
+              + New Product
+            </button>
+          </Link>
+        </div>
+        <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="w-full md:w-1/3 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow"
+          />
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <DataGrid getRowId={(row) => row._id} rows={filteredProducts} columns={columns.filter(col => col.field !== '_id')} autoHeight hideFooterSelectedRowCount />
+        </div>
+      </div>
     </div>
   );
 };

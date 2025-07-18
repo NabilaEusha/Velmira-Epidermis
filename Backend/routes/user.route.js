@@ -1,7 +1,6 @@
 import express from "express";
+import { getAllUsers, getUser, deleteUser, updateUser, resetPassword } from "../controller/user.controller.js";
 const router = express.Router();
-import {getAllUsers, getUser, deleteUser,updateUser} from "../controller/user.controller.js";
-
 
 //GET ALL USERS ROUTE
 router.get("/", getAllUsers);
@@ -13,7 +12,9 @@ router.delete("/:id", deleteUser);
 router.put("/:id", updateUser);
 
 //GET ONE USER ROUTE
-router.get("/find/:userId", getUser); 
+router.get("/find/:userId", getUser);
 
+// Password reset endpoint
+router.post('/reset-password', resetPassword);
 
 export default router;
