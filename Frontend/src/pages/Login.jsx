@@ -103,6 +103,11 @@ const Login = () => {
               />
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#9cc960] to-[#75954c] opacity-0 group-focus-within:opacity-10 transition-opacity duration-300 pointer-events-none"></div>
             </div>
+            <div className="text-right mb-2">
+              <Link to="/reset-password" className="text-[#75954c] hover:text-[#9cc960] text-sm font-semibold transition-colors duration-300 hover:underline">
+                Forgot Password?
+              </Link>
+            </div>
 
             <button
               className="w-full py-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] text-white font-[Poppins] font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#75954c]/25 hover:scale-105 transform active:scale-95 relative overflow-hidden group"
