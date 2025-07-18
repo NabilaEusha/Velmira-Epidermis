@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 const Users = () => {
  const [users, setUsers] = useState([]);
+ const [search, setSearch] = useState("");
 
   useEffect(() =>{
    
@@ -19,6 +20,19 @@ const Users = () => {
     }
     getUsers();
   },[])
+  // Add user delete handler
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await userRequest.delete(`/users/${id}`);
+        setUsers(users.filter((item) => item._id !== id));
+      } catch (error) {
+        console.log(error);
+        alert("Failed to delete user");
+      }
+    }
+  };
+
   const columns = [
     { field: "_id", headerName: "ID", width: 90 },
     { field: "name", headerName: "Name", width: 150 },
@@ -29,37 +43,43 @@ const Users = () => {
       field: "delete",
       headerName: "Delete",
       width: 150,
-      renderCell: () => {
+      renderCell: (params) => {
         return (
           <>
-            <FaTrash className="text-red-500 cursor-pointer m-2" />
+            <FaTrash className="text-red-500 cursor-pointer m-2 hover:text-red-700 transition-colors" onClick={() => handleDelete(params.row._id)} />
           </>
         );
       },
     },
   ];
 
-  const data= [
-    { _id: "u001", name: "Alice Johnson", email: "alice@example.com", phone: "123-456-7890", role: "Admin" },
-    { _id: "u002", name: "Bob Smith", email: "bob@example.com", phone: "234-567-8901", role: "User" },
-    { _id: "u003", name: "Charlie Brown", email: "charlie@example.com", phone: "345-678-9012", role: "User" },
-    { _id: "u004", name: "David Clark", email: "david@example.com", phone: "456-789-0123", role: "Admin" },
-    { _id: "u005", name: "Eve Stone", email: "eve@example.com", phone: "567-890-1234", role: "User" },
-    { _id: "u006", name: "Frank Wilson", email: "frank@example.com", phone: "678-901-2345", role: "Admin" },
-    { _id: "u007", name: "Grace Lee", email: "grace@example.com", phone: "789-012-3456", role: "User" },
-    { _id: "u008", name: "Henry Kim", email: "henry@example.com", phone: "890-123-4567", role: "Admin" },
-  ];
- return (
-    <div className="p-5 w-[70vw]">
-      <div className="flex items-center justify-between m-[30px]">
-        <h1 className="m-[20px] text-[20px]">All Users</h1>
-      </div>
-      <div className='m-[30px]'>
-      <DataGrid getRowId={(row) => row._id} rows={users} checkboxSelection columns={columns} />
-      </div>
+  // Filter users by search
+  const filteredUsers = users.filter((user) =>
+    user.name?.toLowerCase().includes(search.toLowerCase()) ||
+    user.email?.toLowerCase().includes(search.toLowerCase())
+  );
 
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 py-10 px-4 flex justify-center">
+      <div className="w-full max-w-5xl">
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">User Management</h1>
+        </div>
+        <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <input
+            type="text"
+            placeholder="Search users..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="w-full md:w-1/3 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow"
+          />
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <DataGrid getRowId={(row) => row._id} rows={filteredUsers} columns={columns.filter(col => col.field !== '_id')} autoHeight hideFooterSelectedRowCount />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default Users
+export default Users;
