@@ -68,7 +68,7 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="relative h-[60vh] overflow-hidden">
+      <div className="relative h-56 sm:h-[40vh] md:h-[60vh] overflow-hidden">
         <img 
           src={blog.image} 
           alt={blog.title}
@@ -76,17 +76,17 @@ const BlogPost = () => {
         />
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center text-white max-w-4xl px-6">
-            <span className="inline-block bg-[#7e973d] px-4 py-2 rounded-full text-sm font-semibold mb-4">
+          <div className="text-center text-white max-w-4xl px-2 sm:px-6">
+            <span className="inline-block bg-[#7e973d] px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold mb-4">
               {blog.category}
             </span>
             <h1 
-              className="text-4xl md:text-5xl font-bold mb-4"
+              className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4"
               style={{ fontFamily: "var(--font-italiana)" }}
             >
               {blog.title}
             </h1>
-            <div className="flex items-center justify-center space-x-6 text-sm">
+            <div className="flex items-center justify-center space-x-4 sm:space-x-6 text-xs sm:text-sm">
               <span>{blog.readTime}</span>
               <span>•</span>
               <span>{new Date(blog.date).toLocaleDateString()}</span>
@@ -96,8 +96,8 @@ const BlogPost = () => {
       </div>
 
       {/* Article Content */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-12">
+      <div className="max-w-4xl mx-auto px-2 sm:px-6 py-8 sm:py-12">
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8 mb-8 sm:mb-12">
           <div 
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: fullContent }}
@@ -106,25 +106,26 @@ const BlogPost = () => {
 
         {/* Related Articles */}
         {relatedBlogs.length > 0 && (
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Related Articles</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="mb-8 sm:mb-12">
+            <h3 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">Related Articles</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
               {relatedBlogs.map((relatedBlog) => (
                 <Link 
                   key={relatedBlog.id}
                   to={`/blog/${relatedBlog.id}`}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  aria-label={`Read related article: ${relatedBlog.title}`}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 min-h-[44px] min-w-[44px]"
                 >
                   <img 
                     src={relatedBlog.image} 
                     alt={relatedBlog.title}
-                    className="w-full h-40 object-cover"
+                    className="w-full h-28 sm:h-40 object-cover"
                   />
-                  <div className="p-4">
-                    <h4 className="font-semibold text-gray-800 mb-2 line-clamp-2">
+                  <div className="p-3 sm:p-4">
+                    <h4 className="font-semibold text-gray-800 mb-2 line-clamp-2 text-xs sm:text-base">
                       {relatedBlog.title}
                     </h4>
-                    <p className="text-sm text-gray-600 line-clamp-2">
+                    <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">
                       {relatedBlog.excerpt}
                     </p>
                   </div>
@@ -138,7 +139,8 @@ const BlogPost = () => {
         <div className="text-center">
           <Link 
             to="/explore"
-            className="inline-flex items-center text-[#7e973d] hover:text-[#6a7f35] font-semibold"
+            aria-label="Back to All Articles"
+            className="inline-flex items-center text-[#7e973d] hover:text-[#6a7f35] font-semibold min-h-[44px] min-w-[44px] text-sm sm:text-base"
           >
             <svg className="mr-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

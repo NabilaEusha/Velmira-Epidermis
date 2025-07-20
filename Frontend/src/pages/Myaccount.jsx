@@ -2,11 +2,15 @@ import {useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { logOut } from '../redux/userRedux';
 import { updateUserProfile, changePassword } from '../redux/apiCalls';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const Myaccount = () => {
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // State for form data (matching your model field names)
   const [formData, setFormData] = useState({
@@ -54,9 +58,27 @@ const Myaccount = () => {
     });
 
     if (result.success) {
-      alert('Account information updated successfully!');
+      toast.success('Account information updated successfully!', {
+        position: 'top-center',
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     } else {
-      alert(result.message);
+      toast.error(result.message || 'Failed to update account information.', {
+        position: 'top-center',
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     }
   };
 
@@ -65,7 +87,16 @@ const Myaccount = () => {
     e.preventDefault();
     
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      alert('New passwords do not match!');
+      toast.error('New passwords do not match!', {
+        position: 'top-center',
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
       return;
     }
 
@@ -76,46 +107,80 @@ const Myaccount = () => {
     });
 
     if (result.success) {
-      alert('Password updated successfully!');
+      toast.success('Password updated successfully!', {
+        position: 'top-center',
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
       setPasswordData({
         currentPassword: '',
         newPassword: '',
         confirmPassword: ''
       });
     } else {
-      alert(result.message);
+      toast.error(result.message || 'Failed to update password.', {
+        position: 'top-center',
+        autoClose: 3500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
     }
   };
 
   const handleLogout = () => {
-    dispatch(logOut())
+    dispatch(logOut());
+    navigate('/');
+    setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }, 100);
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-    <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-4xl">
+    <div className="min-h-screen flex items-center justify-center p-2 sm:p-4 md:p-6">
+      <ToastContainer
+        position="top-center"
+        autoClose={3500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+    <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg w-full max-w-4xl">
       {/* Account Information Section */}
       <div className="mb-8">
-        <h2 className="text-xl font-extrabold mb-6 text-gray-800">Account Information</h2>
-        <div className="space-y-4">
-          <p className="text-xl font-semibold text-gray-800">{formData.name}</p>
-          <p className="text-gray-600">{formData.email}</p>
-          <p className="text-gray-600">{formData.phone}</p>
+        <h2 className="text-lg sm:text-xl font-extrabold mb-6 text-gray-800">Account Information</h2>
+        <div className="space-y-2 sm:space-y-4">
+          <p className="text-base sm:text-xl font-semibold text-gray-800">{formData.name}</p>
+          <p className="text-gray-600 text-sm sm:text-base">{formData.email}</p>
+          <p className="text-gray-600 text-sm sm:text-base">{formData.phone}</p>
         </div>
       </div>
 
       {/* Account Settings Section */}
       <div className="mb-8">
-        <h3 className="text-xl font-bold mb-4 text-gray-800">Account Settings</h3>
-        <form className="space-y-6" onSubmit={handleAccountSubmit}>
+        <h3 className="text-lg sm:text-xl font-bold mb-4 text-gray-800">Account Settings</h3>
+        <form className="space-y-4 sm:space-y-6" onSubmit={handleAccountSubmit}>
           <div>
-            <label className="block text-gray-700 text-sm font-semibold">Name</label>
+            <label className="block text-gray-700 text-xs sm:text-sm font-semibold">Name</label>
             <input 
               type="text" 
               name="name"
               value={formData.name} 
               onChange={handleInputChange}
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" 
               required
             />
           </div>
@@ -154,22 +219,22 @@ const Myaccount = () => {
             />
           </div>
 
-          <button type="submit" className="w-full bg-[#1e1e1e] text-white p-3 rounded-lg shadow-md hover:bg-green-900 transition duration-300">Save Changes</button>
+          <button type="submit" className="w-full bg-[#1e1e1e] text-white p-3 rounded-lg shadow-md hover:bg-green-900 transition duration-300 min-h-[44px] min-w-[44px]">Save Changes</button>
         </form>
       </div>
 
       {/* Password Management Section */}
       <div>
-        <h3 className="text-xl font-bold mb-4 text-gray-800">Change Password</h3>
-        <form className="space-y-6" onSubmit={handlePasswordSubmit}>
+        <h3 className="text-lg sm:text-xl font-bold mb-4 text-gray-800">Change Password</h3>
+        <form className="space-y-4 sm:space-y-6" onSubmit={handlePasswordSubmit}>
           <div>
-            <label className="block text-gray-700 text-sm font-semibold">Current Password</label>
+            <label className="block text-gray-700 text-xs sm:text-sm font-semibold">Current Password</label>
             <input 
               type="password" 
               name="currentPassword"
               value={passwordData.currentPassword}
               onChange={handlePasswordChange}
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+              className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" 
               required
             />
           </div>
@@ -198,7 +263,7 @@ const Myaccount = () => {
             />
           </div>
           
-          <button type="submit" className="w-full bg-[#1e1e1e] text-white p-3 rounded-lg shadow-md hover:bg-gray-500 transition duration-300">Update Password</button>
+          <button type="submit" className="w-full bg-[#1e1e1e] text-white p-3 rounded-lg shadow-md hover:bg-green-900 transition duration-300 min-h-[44px] min-w-[44px]">Change Password</button>
         </form>
         
         <button 

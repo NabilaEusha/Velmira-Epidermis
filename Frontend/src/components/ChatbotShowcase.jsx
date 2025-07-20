@@ -5,7 +5,7 @@ function ChatbotShowcase({ onStartChat }) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-r from-gray-50 via-white to-gray-50 relative overflow-hidden">
+    <section className="py-10 sm:py-16 px-2 sm:px-4 bg-gradient-to-r from-gray-50 via-white to-gray-50 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute top-10 left-20 w-24 h-24 bg-[#414312]/8 rounded-full blur-2xl"></div>
       <div className="absolute bottom-10 right-20 w-32 h-32 bg-[#414312]/6 rounded-full blur-3xl"></div>
@@ -17,7 +17,7 @@ function ChatbotShowcase({ onStartChat }) {
             <Bot className="w-4 h-4" />
             AI Skincare Assistant
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
             Get Instant <span className="text-[#414312]">Expert Advice</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -26,8 +26,8 @@ function ChatbotShowcase({ onStartChat }) {
         </div>
 
         {/* Main Content - Landscape Layout */}
-        <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 lg:p-10">
-          <div className="grid lg:grid-cols-3 gap-8 items-center">
+        <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-4 sm:p-8 lg:p-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 items-center">
             
             {/* Left - Compact Chat Preview */}
             <div className="lg:col-span-1">
@@ -123,10 +123,10 @@ function ChatbotShowcase({ onStartChat }) {
             {/* Right - CTA Section */}
             <div className="lg:col-span-1 text-center lg:text-left space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
                   Ready to Transform Your Skin?
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                   Start your personalized skincare journey with our AI consultant - completely free.
                 </p>
               </div>
@@ -135,7 +135,8 @@ function ChatbotShowcase({ onStartChat }) {
                 onClick={onStartChat}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="group w-full lg:w-auto bg-gradient-to-r from-[#414312] to-[#525518] hover:from-[#363011] hover:to-[#414312] text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+                aria-label="Start Consultation"
+                className="group w-full lg:w-auto bg-gradient-to-r from-[#414312] to-[#525518] hover:from-[#363011] hover:to-[#414312] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-3 min-h-[44px] min-w-[44px]"
               >
                 <MessageCircle className={`w-5 h-5 transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} />
                 Start Consultation
@@ -143,7 +144,7 @@ function ChatbotShowcase({ onStartChat }) {
               </button>
 
               {/* Quick Stats */}
-              <div className="flex items-center justify-center lg:justify-start gap-6 pt-4 border-t border-gray-200">
+              <div className="flex flex-col xs:flex-row items-center justify-center lg:justify-start gap-3 xs:gap-6 pt-4 border-t border-gray-200">
                 <div className="text-center">
                   <p className="text-lg font-bold text-[#414312]">5K+</p>
                   <p className="text-xs text-gray-600">Happy Users</p>

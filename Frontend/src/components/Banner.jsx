@@ -52,7 +52,7 @@ const Banner = () => {
         {banners.map((banner, index) => (
           <div key={index}>
             <div
-              className="relative bg-no-repeat bg-cover bg-center h-[80vh] flex items-center"
+              className="relative bg-no-repeat bg-cover bg-center h-[60vh] md:h-[80vh] flex items-center"
               style={{ backgroundImage: `url(${banner.img})` }}
             >
               {/* Enhanced Gradient Overlay */}
@@ -63,11 +63,11 @@ const Banner = () => {
               <div className="absolute bottom-20 right-32 w-16 h-16 bg-[#7e973d]/30 rounded-full animate-bounce"></div>
 
               {/* Content Container */}
-              <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full">
+              <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-20 w-full">
                 <div className="max-w-2xl">
                   {/* Title */}
                   <h2
-                    className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6 leading-snug animate-fade-in-up animation-delay-200"
+                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6 leading-snug animate-fade-in-up animation-delay-200"
                     style={{ fontFamily: "var(--font-italiana)" }}
                   >
                     {banner.title}
@@ -75,7 +75,7 @@ const Banner = () => {
 
                   {/* Subtitle */}
                   <p
-                    className="text-2x1 md:text-2xl text-gray-100 mb-8 leading-relaxed animate-fade-in-up animation-delay-400"
+                    className="text-base sm:text-lg md:text-2xl text-gray-100 mb-8 leading-relaxed animate-fade-in-up animation-delay-400"
                     style={{ fontFamily: "var(--font-italiana)" }}
                   >
                     {banner.subtitle}
@@ -84,7 +84,7 @@ const Banner = () => {
                   {/* Buttons */}
                   <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up animation-delay-600">
                     <Link to="/products">
-                      <button className="group bg-gradient-to-r from-[#2d310e] to-[#3a3f12] hover:from-[#3a3f12] hover:to-[#2d310e] px-8 py-4 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center min-w-[200px]">
+                      <button aria-label="Shop Now" className="group bg-gradient-to-r from-[#2d310e] to-[#3a3f12] hover:from-[#3a3f12] hover:to-[#2d310e] px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center min-w-[140px] sm:min-w-[200px]">
                         <span>Shop Now</span>
                         <svg
                           className="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
@@ -103,7 +103,7 @@ const Banner = () => {
                     </Link>
 
                     <Link to="/about">
-                      <button className="group bg-gradient-to-r from-[#7e973d] to-[#8fa344] hover:from-[#8fa344] hover:to-[#7e973d] px-8 py-4 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center min-w-[200px]">
+                      <button aria-label="Contact Us" className="group bg-gradient-to-r from-[#7e973d] to-[#8fa344] hover:from-[#8fa344] hover:to-[#7e973d] px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center min-w-[140px] sm:min-w-[200px]">
                         <svg
                           className="mr-2 w-5 h-5 transform group-hover:scale-110 transition-transform duration-300"
                           fill="none"
@@ -123,7 +123,7 @@ const Banner = () => {
                   </div>
 
                   {/* Trust Indicators */}
-                  <div className="flex items-center mt-15 space-x-6 text-white/80 animate-fade-in-up animation-delay-800">
+                  <div className="flex flex-wrap items-center mt-8 space-x-4 sm:space-x-6 text-white/80 animate-fade-in-up animation-delay-800">
                     <div className="flex items-center">
                       <svg
                         className="w-5 h-5 mr-2 text-[#7e973d]"

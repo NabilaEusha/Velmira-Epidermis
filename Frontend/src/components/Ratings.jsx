@@ -14,22 +14,18 @@ export const showAverageRating = (p) => {
     console.log("result", result)
     return (
       <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: "5px",
-        }}
+        className="flex items-center justify-center my-1 sm:my-2"
+        aria-label={`Average rating: ${result.toFixed(1)} out of 5, based on ${length} reviews`}
       >
-       {result ?  <span>
+       {result ?  <span className="flex items-center gap-1 text-xs sm:text-sm">
           <StarRating
             starSpacing="2px"
             starRatedColor="#d1411e"
-            starDimension="18px"
+            starDimension="16px"
             rating={result}
             editing={false}
           />
-          ({length})
+          <span className="ml-1">({length})</span>
         </span> : ""}
       </div>
     );

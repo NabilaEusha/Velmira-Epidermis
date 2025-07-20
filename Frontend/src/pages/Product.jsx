@@ -119,15 +119,15 @@ const Product = () => {
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
           
           {/* LEFT IMAGE SECTION */}
           <div className="relative group">
-            <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white p-8">
+            <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white p-4 sm:p-6 md:p-8">
               <img
                 src={product.img}
                 alt={product.title}
-                className="w-full h-[600px] object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-64 sm:h-80 md:h-[400px] lg:h-[600px] object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
               />
               
               {/* Discount Badge */}
@@ -144,7 +144,7 @@ const Product = () => {
             
             {/* Product Header */}
             <div className="space-y-4">
-              <h1 className="text-4xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                 {product.title}
               </h1>
               
@@ -158,19 +158,19 @@ const Product = () => {
                 </span>
               </div>
               
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                 {product.desc}
               </p>
             </div>
 
             {/* Price Section */}
-            <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
+            <div className="bg-gray-50 rounded-xl p-4 sm:p-6 border border-gray-200">
               <div className="flex items-center space-x-4">
-                <span className="text-3xl font-bold text-gray-900">
+                <span className="text-2xl sm:text-3xl font-bold text-gray-900">
                   ${currentPrice}
                 </span>
                 {hasDiscount && (
-                  <span className="text-xl text-gray-400 line-through">
+                  <span className="text-base sm:text-xl text-gray-400 line-through">
                     ${product.originalPrice}
                   </span>
                 )}
@@ -202,8 +202,8 @@ const Product = () => {
             <div className="bg-white border-2 border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="p-6">
                 <div className="flex items-center space-x-3 mb-4">
-                  <FaBox className="text-2xl text-[#96694c]" />
-                  <h3 className="text-xl font-bold text-gray-800">What's in the Box</h3>
+                  <FaBox className="text-xl sm:text-2xl text-[#96694c]" />
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800">What's in the Box</h3>
                 </div>
                 <div className="w-full h-px bg-gray-200 mb-4"></div>
                 <p className="text-gray-700 font-medium">{product.title}</p>
@@ -214,23 +214,21 @@ const Product = () => {
             <div className="space-y-6">
               
               {/* Quantity Selector */}
-              <div className="flex items-center space-x-6">
-                <span className="text-lg font-semibold text-gray-700">Quantity:</span>
-                <div className="flex items-center space-x-4 bg-gray-50 rounded-full p-2">
+              <div className="flex items-center space-x-4 sm:space-x-6">
+                <span className="text-base sm:text-lg font-semibold text-gray-700">Quantity:</span>
+                <div className="flex items-center space-x-2 sm:space-x-4 bg-gray-50 rounded-full p-2">
                   <button
                     onClick={() => handleQuantity("dec")}
-                    className="w-8 h-8 bg-[#ab9962] text-white rounded-full flex items-center justify-center hover:bg-[#96694c] transition-all duration-300 shadow-md hover:shadow-lg"
+                    className="w-11 h-11 bg-[#ab9962] text-white rounded-full flex items-center justify-center hover:bg-[#96694c] transition-all duration-300 shadow-md hover:shadow-lg min-w-[44px] min-h-[44px]"
                   >
                     <FaMinus />
                   </button>
-                  
-                  <span className="text-2xl font-bold text-gray-800 min-w-[3rem] text-center">
+                  <span className="text-xl sm:text-2xl font-bold text-gray-800 min-w-[3rem] text-center">
                     {quantity}
                   </span>
-                  
                   <button
                     onClick={() => handleQuantity("inc")}
-                    className="w-8 h-8 bg-[#ab9962] text-white rounded-full flex items-center justify-center hover:bg-[#96694c] transition-all duration-300 shadow-md hover:shadow-lg"
+                    className="w-11 h-11 bg-[#ab9962] text-white rounded-full flex items-center justify-center hover:bg-[#96694c] transition-all duration-300 shadow-md hover:shadow-lg min-w-[44px] min-h-[44px]"
                   >
                     <FaPlus />
                   </button>
@@ -240,11 +238,12 @@ const Product = () => {
               {/* Add to Cart Button */}
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-[#7a6557] hover:bg-[#6a5447] text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                aria-label="Add to Cart"
+                className="w-full bg-[#7a6557] hover:bg-[#6a5447] text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl min-h-[44px] min-w-[44px]"
               >
-                <div className="flex items-center justify-center space-x-3">
-                  <span className="text-lg">Add to Cart</span>
-                  <span className="text-xl">→</span>
+                <div className="flex items-center justify-center space-x-2 sm:space-x-3">
+                  <span className="text-base sm:text-lg">Add to Cart</span>
+                  <span className="text-lg sm:text-xl">→</span>
                 </div>
               </button>
             </div>

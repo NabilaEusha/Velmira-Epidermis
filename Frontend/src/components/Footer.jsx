@@ -7,7 +7,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-[#c9c48b] via-[#d4d08f] to-[#beb974] px-6 md:px-12 lg:px-24 xl:px-36 2xl:px-52 py-12 mt-10 overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-[#c9c48b] via-[#d4d08f] to-[#beb974] px-6 md:px-12 lg:px-24 xl:px-36 2xl:px-52 py-12 mt-10 overflow-hidden">
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 right-20 w-24 h-24 bg-white rounded-full blur-2xl animate-pulse"></div>
@@ -54,7 +54,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="flex-1">
+        <nav className="flex-1" aria-label="Footer quick links">
           <h3 className="text-lg font-bold text-gray-800 mb-6 relative group">
             <span className="relative z-10">Quick Links</span>
             <div className="absolute -bottom-1 left-0 w-12 h-1 bg-gradient-to-r from-[#66631b] to-[#8b8635] rounded-full transition-all duration-300 group-hover:w-20"></div>
@@ -71,7 +71,7 @@ const Footer = () => {
               <li key={link.name} className="group">
                 <a 
                   href={link.href}
-                  className="text-sm md:text-base text-gray-700 hover:text-[#66631b] transition-all duration-300 relative flex items-center cursor-pointer transform hover:translate-x-2"
+                  className="text-sm md:text-base text-gray-700 hover:text-[#66631b] transition-all duration-300 relative flex items-center cursor-pointer transform hover:translate-x-2 min-h-[44px] min-w-[44px]"
                 >
                   <span className="w-0 h-0.5 bg-[#66631b] transition-all duration-300 group-hover:w-4 mr-0 group-hover:mr-2 rounded-full"></span>
                   <span className="relative">
@@ -82,7 +82,7 @@ const Footer = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
         {/* Contact Info */}
         <div className="flex-1">
@@ -146,9 +146,8 @@ const Footer = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#66631b] transition-all duration-500 hover:w-full"></span>
             </span>
           </p>
-          
           {/* Enhanced Social Media Icons */}
-          <div className="flex space-x-4">
+          <div className="flex flex-wrap gap-2 sm:gap-4 justify-center">
             {[
               { name: 'GitHub', path: 'M22 12.08c0-5.522-4.477-10-10-10S2 6.558 2 12.08c0 4.411 3.07 8.083 7.305 9.27.535.098.73-.233.73-.518 0-.255-.009-.933-.014-1.832-2.97.647-3.595-1.433-3.595-1.433-.486-1.235-1.187-1.564-1.187-1.564-.97-.663.073-.65.073-.65 1.07.074 1.635 1.106 1.635 1.106.953 1.634 2.502 1.162 3.113.889.098-.695.373-1.163.68-1.43-2.373-.271-4.868-1.188-4.868-5.288 0-1.168.417-2.124 1.1-2.874-.111-.271-.478-1.363.104-2.842 0 0 .9-.288 2.95 1.095.856-.241 1.774-.36 2.688-.364.914.004 1.832.123 2.688.364 2.047-1.384 2.946-1.095 2.946-1.095.584 1.48.217 2.572.106 2.842.685.75 1.1 1.706 1.1 2.874 0 4.111-2.498 5.014-4.878 5.281.384.33.726.983.726 1.98 0 1.429-.013 2.583-.013 2.933 0 .287.193.62.735.515C18.93 20.16 22 16.491 22 12.08z' },
               { name: 'Twitter', path: 'M22.23 5.924c-.813.36-1.684.603-2.598.711a4.517 4.517 0 001.984-2.486c-.867.514-1.826.888-2.847 1.09a4.503 4.503 0 00-7.673 4.106 12.78 12.78 0 01-9.292-4.71 4.501 4.501 0 001.392 6.008 4.482 4.482 0 01-2.044-.563v.057a4.504 4.504 0 003.605 4.416 4.515 4.515 0 01-2.036.077 4.506 4.506 0 004.205 3.127 9.034 9.034 0 01-5.602 1.932c-.363 0-.722-.021-1.079-.064a12.765 12.765 0 006.917 2.027c8.304 0 12.847-6.878 12.847-12.847 0-.195-.004-.39-.014-.583a9.183 9.183 0 002.252-2.343c-.825.367-1.71.614-2.63.723a4.518 4.518 0 001.979-2.495z' },
@@ -157,7 +156,8 @@ const Footer = () => {
               <a 
                 key={social.name}
                 href="#" 
-                className="group relative p-3 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/40 hover:border-[#66631b]/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
+                aria-label={social.name}
+                className="group relative p-3 min-h-[44px] min-w-[44px] bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/40 hover:border-[#66631b]/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <svg className="relative w-5 h-5 text-gray-700 group-hover:text-[#66631b] transition-all duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
@@ -180,7 +180,7 @@ const Footer = () => {
           animation: float 4s ease-in-out infinite;
         }
       `}</style>
-    </div>
+    </footer>
   );
 };
 

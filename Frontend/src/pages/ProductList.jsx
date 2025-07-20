@@ -29,12 +29,12 @@ const ProductList = () => {
       </div>
 
       {/* Filter Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-6">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-6 overflow-x-auto">
             
             {/* Filter Section */}
-            <div className="flex flex-col sm:flex-row gap-4 flex-1">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 flex-1">
               <div className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
@@ -44,10 +44,11 @@ const ProductList = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 flex-1">
                 <div className="relative flex-1">
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Skin Concern</label>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Skin Concern</label>
                   <select 
                     name="concern" 
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 appearance-none cursor-pointer"
+                    aria-label="Filter by skin concern"
+                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 appearance-none cursor-pointer min-h-[44px]"
                     onChange={handleFilters}
                   >
                     <option value="">Select concern</option>
@@ -83,10 +84,11 @@ const ProductList = () => {
                 </div>
 
                 <div className="relative flex-1">
-                  <label className="block text-xs font-medium text-gray-500 mb-1">Brand</label>
+                  <label className="block text-xs sm:text-sm font-medium text-gray-500 mb-1">Brand</label>
                   <select 
                     name="brand" 
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 appearance-none cursor-pointer"
+                    aria-label="Filter by brand"
+                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 appearance-none cursor-pointer min-h-[44px]"
                     onChange={handleFilters}
                   >
                     <option value="">Select brand</option>
@@ -117,19 +119,20 @@ const ProductList = () => {
             </div>
 
             {/* Sort Section */}
-            <div className="flex items-center gap-4 lg:border-l lg:border-gray-200 lg:pl-6">
+            <div className="flex items-center gap-2 sm:gap-4 lg:border-l lg:border-gray-200 lg:pl-6">
               <div className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v1H8V5z"></path>
                 </svg>
-                <span className="text-sm font-semibold text-gray-700 whitespace-nowrap">Sort by</span>
+                <span className="text-xs sm:text-sm font-semibold text-gray-700 whitespace-nowrap">Sort by</span>
               </div>
               
               <div className="relative">
                 <select 
                   name="price" 
-                  className="p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 appearance-none cursor-pointer min-w-[140px]"
+                  aria-label="Sort by price or newest"
+                  className="p-2 sm:p-3 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-700 appearance-none cursor-pointer min-w-[120px] sm:min-w-[140px] min-h-[44px]"
                   onChange={(e) => setSort(e.target.value)}
                   value={sort}
                 >

@@ -13,7 +13,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-white flex flex-col gap-8 px-0 sm:px-0 md:px-0 lg:px-0">
       <Banner />
       <Category />
       <ChatbotShowcase onStartChat={handleStartChat} />

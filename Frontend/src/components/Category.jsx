@@ -41,13 +41,13 @@ const Category = () => {
       </div>
 
       {/* Categories Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto">
         {categories.map((category, index) => (
           <Link to={category.link} key={index}>
             <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 cursor-pointer">
               {/* Background Image */}
               <div 
-                className="h-80 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-110"
+                className="h-56 sm:h-64 md:h-72 lg:h-80 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-110"
                 style={{ backgroundImage: `url(${category.image})` }}
               >
                 {/* Gradient Overlay */}
@@ -58,19 +58,19 @@ const Category = () => {
               </div>
 
               {/* Content */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6">
+              <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                  <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[#cedeb1] transition-colors duration-300" 
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-[#cedeb1] transition-colors duration-300" 
                       style={{ fontFamily: "var(--font-italiana)" }}>
                     {category.name}
                   </h3>
-                  <p className="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 transform translate-y-4 group-hover:translate-y-0">
+                  <p className="text-gray-200 text-xs sm:text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 transform translate-y-4 group-hover:translate-y-0">
                     {category.description}
                   </p>
                   
                   {/* Shop Now Button */}
                   <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200 transform translate-y-4 group-hover:translate-y-0">
-                    <span className="inline-flex items-center px-4 py-2 bg-[#7e973d] text-white text-sm font-medium rounded-full hover:bg-[#6d7c35] transition-colors duration-300">
+                    <span aria-label={`Shop ${category.name}`} className="inline-flex items-center px-4 py-2 min-h-[44px] min-w-[44px] bg-[#7e973d] text-white text-xs sm:text-sm font-medium rounded-full hover:bg-[#6d7c35] transition-colors duration-300">
                       Shop Now
                       <svg className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -90,7 +90,7 @@ const Category = () => {
       {/* Bottom CTA */}
       <div className="text-center mt-16">
         <Link to="/products">
-          <button className="bg-gradient-to-r from-[#2d310e] to-[#7e973d] hover:from-[#7e973d] hover:to-[#2d310e] text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
+          <button aria-label="View All Products" className="bg-gradient-to-r from-[#2d310e] to-[#7e973d] hover:from-[#7e973d] hover:to-[#2d310e] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 min-h-[44px] min-w-[44px]">
             View All Products
           </button>
         </Link>
