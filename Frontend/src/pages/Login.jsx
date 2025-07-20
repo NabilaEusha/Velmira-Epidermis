@@ -56,9 +56,9 @@ const Login = () => {
         <div className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-white rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative flex items-center bg-white/95 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden mt-[-70px] border border-white/20 hover:shadow-3xl transition-all duration-500 hover:scale-[1.02]">
+      <div className="relative flex flex-col md:flex-row items-center bg-white/95 backdrop-blur-sm shadow-2xl rounded-2xl overflow-hidden mt-0 md:mt-[-70px] border border-white/20 hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] w-full max-w-4xl mx-auto">
         {/* IMAGE */}
-        <div className="h-[500px] w-[700px] relative group overflow-hidden">
+        <div className="w-full h-48 sm:h-64 md:h-[500px] md:w-[350px] lg:w-[400px] xl:w-[500px] relative group overflow-hidden flex-shrink-0">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
           <img
             src="/blisslogo1.png"
@@ -69,11 +69,11 @@ const Login = () => {
         </div>
 
         {/* FORM */}
-        <div className="p-10 w-[500px] relative">
+        <div className="p-4 sm:p-8 md:p-10 w-full md:w-[350px] lg:w-[400px] xl:w-[500px] relative flex flex-col justify-center">
           {/* Decorative Elements */}
           <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-[#9cc960]/20 to-transparent rounded-full blur-sm"></div>
 
-          <h2 className="text-3xl font-extrabold font-[Poppins] mb-8 bg-gradient-to-r from-[#75954c] to-[#9cc960] bg-clip-text text-transparent animate-pulse">
+          <h2 className="text-2xl sm:text-3xl font-extrabold font-[Poppins] mb-8 bg-gradient-to-r from-[#75954c] to-[#9cc960] bg-clip-text text-transparent animate-pulse">
             Welcome Back
           </h2>
 
@@ -110,10 +110,10 @@ const Login = () => {
             </div>
 
             <button
-              className="w-full py-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] text-white font-[Poppins] font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#75954c]/25 hover:scale-105 transform active:scale-95 relative overflow-hidden group"
+              className="w-full py-3 sm:py-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] text-white font-[Poppins] font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#75954c]/25 hover:scale-105 transform active:scale-95 relative overflow-hidden group min-h-[44px] min-w-[44px] text-base sm:text-lg"
+              aria-label="Login to Your Account"
               onClick={handleLogin}
             >
-             
               <span className="relative z-10">Login to Your Account</span>
               <div className="absolute inset-0 bg-gradient-to-r from-[#9cc960] to-[#75954c] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>

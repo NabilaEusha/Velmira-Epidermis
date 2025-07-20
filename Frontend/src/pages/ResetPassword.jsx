@@ -57,17 +57,17 @@ const ResetPassword = () => {
       </div>
 
       {/* Main Card */}
-      <div className="relative w-full max-w-md bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-8 border border-white/20 hover:shadow-3xl transition-all duration-300">
+      <div className="relative w-full max-w-md bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8 border border-white/20 hover:shadow-3xl transition-all duration-300">
         
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] rounded-full flex items-center justify-center">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] rounded-full flex items-center justify-center">
+            <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2 font-[Poppins]">Reset Password</h1>
-          <p className="text-gray-600 font-[Poppins]">Enter your details to create a new password</p>
+          <h1 className="text-lg sm:text-2xl font-bold text-gray-800 mb-2 font-[Poppins]">Reset Password</h1>
+          <p className="text-gray-600 font-[Poppins] text-sm sm:text-base">Enter your details to create a new password</p>
         </div>
 
         {/* Form */}
@@ -83,7 +83,7 @@ const ResetPassword = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#9cc960] transition-all duration-300 bg-white/70 hover:bg-white hover:shadow-md focus:bg-white focus:shadow-lg placeholder-gray-400 text-gray-700 font-[Poppins]"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#9cc960] transition-all duration-300 bg-white/70 hover:bg-white hover:shadow-md focus:bg-white focus:shadow-lg placeholder-gray-400 text-gray-700 font-[Poppins] text-sm sm:text-base"
               placeholder="example@example.com"
             />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#9cc960]/10 to-[#75954c]/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
@@ -99,7 +99,7 @@ const ResetPassword = () => {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#9cc960] transition-all duration-300 bg-white/70 hover:bg-white hover:shadow-md focus:bg-white focus:shadow-lg placeholder-gray-400 text-gray-700 font-[Poppins]"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#9cc960] transition-all duration-300 bg-white/70 hover:bg-white hover:shadow-md focus:bg-white focus:shadow-lg placeholder-gray-400 text-gray-700 font-[Poppins] text-sm sm:text-base"
               placeholder="••••••••"
             />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#9cc960]/10 to-[#75954c]/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
@@ -115,7 +115,7 @@ const ResetPassword = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#9cc960] transition-all duration-300 bg-white/70 hover:bg-white hover:shadow-md focus:bg-white focus:shadow-lg placeholder-gray-400 text-gray-700 font-[Poppins]"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-[#9cc960] transition-all duration-300 bg-white/70 hover:bg-white hover:shadow-md focus:bg-white focus:shadow-lg placeholder-gray-400 text-gray-700 font-[Poppins] text-sm sm:text-base"
               placeholder="••••••••"
             />
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#9cc960]/10 to-[#75954c]/10 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
@@ -125,7 +125,8 @@ const ResetPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#75954c]/25 hover:scale-105 transform active:scale-95 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 font-[Poppins]"
+            aria-label="Reset Password"
+            className="w-full py-3 sm:py-4 bg-gradient-to-r from-[#75954c] to-[#9cc960] text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-[#75954c]/25 hover:scale-105 transform active:scale-95 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 font-[Poppins] min-h-[44px] min-w-[44px] text-base sm:text-lg"
           >
             <span className="relative z-10 flex items-center justify-center">
               {loading ? (

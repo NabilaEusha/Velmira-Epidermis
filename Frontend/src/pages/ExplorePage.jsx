@@ -20,15 +20,15 @@ const ExplorePage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-[#2d310e] to-[#7e973d] text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 text-center">
+      <div className="bg-gradient-to-r from-[#2d310e] to-[#7e973d] text-white py-10 sm:py-16">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 text-center">
           <h1 
-            className="text-5xl font-bold mb-4"
+            className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-italiana)" }}
           >
             Explore Wellness & Beauty
           </h1>
-          <p className="text-xl max-w-3xl mx-auto">
+          <p className="text-base sm:text-xl max-w-3xl mx-auto">
             Your ultimate resource for skincare knowledge, wellness tips, and beauty insights. 
             Discover expert advice to transform your skin health journey.
           </p>
@@ -37,8 +37,8 @@ const ExplorePage = () => {
 
       {/* Filters Section */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 sm:gap-4">
             {/* Search Bar */}
             <div className="relative flex-1 max-w-md">
               <input
@@ -54,12 +54,13 @@ const ExplorePage = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {categories.map(category => (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
+                  aria-label={`Filter by ${category}`}
+                  className={`px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-300 min-h-[44px] min-w-[44px] ${
                     selectedCategory === category
                       ? 'bg-[#7e973d] text-white'
                       : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -78,29 +79,29 @@ const ExplorePage = () => {
       </div>
 
       {/* Blog Grid */}
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {filteredBlogs.map((blog) => (
             <article 
               key={blog.id} 
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col"
             >
               <div className="relative overflow-hidden">
                 <img 
                   src={blog.image} 
                   alt={blog.title}
-                  className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-32 sm:h-40 md:h-48 object-cover hover:scale-105 transition-transform duration-300"
                 />
-                <span className="absolute top-3 left-3 bg-[#7e973d] text-white px-3 py-1 rounded-full text-xs font-semibold">
+                <span className="absolute top-3 left-3 bg-[#7e973d] text-white px-2 sm:px-3 py-1 rounded-full text-xs font-semibold">
                   {blog.category}
                 </span>
               </div>
               
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 line-clamp-2 hover:text-[#7e973d] transition-colors">
+              <div className="p-4 sm:p-6 flex flex-col flex-1">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-3 line-clamp-2 hover:text-[#7e973d] transition-colors">
                   {blog.title}
                 </h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                <p className="text-gray-600 text-xs sm:text-sm mb-4 line-clamp-3">
                   {blog.excerpt}
                 </p>
                 
@@ -111,7 +112,8 @@ const ExplorePage = () => {
                 
                 <Link 
                   to={`/blog/${blog.id}`}
-                  className="inline-block w-full text-center bg-[#2d310e] text-white px-4 py-2 rounded hover:bg-[#1a1c08] transition-colors duration-300 text-sm font-medium"
+                  aria-label={`Read full article: ${blog.title}`}
+                  className="inline-block w-full text-center bg-[#2d310e] text-white px-4 py-2 rounded hover:bg-[#1a1c08] transition-colors duration-300 text-xs sm:text-sm font-medium min-h-[44px] min-w-[44px]"
                 >
                   Read Full Article
                 </Link>
@@ -135,7 +137,8 @@ const ExplorePage = () => {
                 setSelectedCategory('All');
                 setSearchTerm('');
               }}
-              className="bg-[#7e973d] text-white px-6 py-2 rounded hover:bg-[#6a7f35] transition-colors duration-300"
+              aria-label="Clear Filters"
+              className="bg-[#7e973d] text-white px-4 sm:px-6 py-2 rounded hover:bg-[#6a7f35] transition-colors duration-300 min-h-[44px] min-w-[44px] text-sm sm:text-base"
             >
               Clear Filters
             </button>

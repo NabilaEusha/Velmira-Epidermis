@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
-
 :root {
-  --font-italiana: 'Italiana', serif;
+    --font-italiana: 'Italiana', serif;
 }
+
+
+/* Removed global font-family override to allow component-level font choices */
+
+
+/* Add more global responsive styles here if needed */

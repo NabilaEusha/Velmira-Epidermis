@@ -5,7 +5,7 @@ export const login = async(dispatch, user) => {
 
     dispatch(loginStart());
 
-    try { 
+    try {
         const res = await userRequest.post("/auth/login/", user);
         dispatch(loginSuccess(res.data));
     } catch (error) {
@@ -21,10 +21,20 @@ export const updateUserProfile = async(dispatch, userData) => {
     try {
         const res = await userRequest.put("/users/update-profile", userData);
         dispatch(updateUserSuccess(res.data.user));
+        // Patch: update persisted user in localStorage
+        const persisted = JSON.parse(localStorage.getItem('persist:root'));
+        if (persisted && persisted.user) {
+            const userState = JSON.parse(persisted.user);
+            userState.currentUser = {...userState.currentUser, ...res.data.user };
+            localStorage.setItem('persist:root', JSON.stringify({
+                ...persisted,
+                user: JSON.stringify(userState)
+            }));
+        }
         return { success: true, message: res.data.message };
     } catch (error) {
         console.error("Error updating profile:", error);
-        return { 
+         return { 
             success: false, 
             message: error.response?.data?.message || "Failed to update profile" 
         };

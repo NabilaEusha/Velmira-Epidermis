@@ -50,3 +50,23 @@
     animation-delay: 0.8s;
     opacity: 0;
 }
+
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body,
+#root {
+    min-height: 100vh;
+    height: 100%;
+}
+
+
+/* Add more global responsive styles here if needed */

@@ -95,7 +95,7 @@ function Chatbot() {
     return (
       <>
         <div 
-          className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
+          className="min-h-screen flex items-center justify-center p-2 sm:p-4 relative overflow-hidden"
           style={{
             background: 'linear-gradient(135deg, #f8f9f6 0%, #f1f3ed 30%, #eaede3 70%, #e3e7d9 100%)'
           }}
@@ -105,20 +105,20 @@ function Chatbot() {
           <div className="absolute bottom-20 right-20 w-32 h-32 bg-[#6d7028]/8 rounded-full blur-2xl"></div>
           <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-[#6d7028]/6 rounded-full blur-lg"></div>
           
-          <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-12 items-center">
             {/* Left Side - Content */}
-            <div className="text-center lg:text-left space-y-8 z-10">
-              <div className="space-y-6">
-                <h1 className="text-6xl lg:text-7xl font-bold text-[#6d7028]">
+            <div className="text-center lg:text-left space-y-4 sm:space-y-6 z-10">
+              <div className="space-y-2 sm:space-y-4">
+                <h1 className="text-2xl sm:text-4xl lg:text-6xl font-bold text-[#6d7028]">
                   VELMIRA
                 </h1>
-                <p className="text-2xl text-gray-700 font-light">Your Personal Skincare Assistant</p>
-                <p className="text-lg text-gray-600 max-w-md mx-auto lg:mx-0">
+                <p className="text-base sm:text-lg md:text-2xl text-gray-700 font-light">Your Personal Skincare Assistant</p>
+                <p className="text-xs sm:text-base md:text-lg text-gray-600 max-w-md mx-auto lg:mx-0">
                   Discover personalized skincare solutions powered by AI. Get expert advice tailored to your unique skin needs.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center lg:justify-start">
                 <button
                   onClick={() => setShowChat(true)}
                   className="group bg-[#6d7028] hover:bg-[#5a5d22] text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
@@ -135,7 +135,7 @@ function Chatbot() {
                 </button>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 mt-6 sm:mt-10">
                 <div className="text-center p-6 bg-white/60 backdrop-blur-sm rounded-xl border border-gray-200/50 hover:shadow-lg transition-all duration-300">
                   <div className="w-12 h-12 bg-[#6d7028]/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Sparkles className="text-[#6d7028]" size={24} />
@@ -161,19 +161,21 @@ function Chatbot() {
             </div>
             
             {/* Right Side - Image */}
-            <div className="relative flex justify-center lg:justify-end">
+            <div className="relative flex justify-center lg:justify-end mt-6 lg:mt-0">
               <div className="relative">
                 <div 
                   className="relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-3xl border border-gray-200"
                   style={{
                     width: imageSizes[imageSize],
+                    minWidth: '140px',
+                    maxWidth: '350px',
                     aspectRatio: '3/4'
                   }}
                 >
                   <img
                     src="/essenceBottle.jpg"
                     alt="Premium Skincare"
-                    className="w-full h-full object-cover"
+                    className="w-full h-40 sm:h-64 md:h-80 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                 </div>
@@ -211,13 +213,13 @@ function Chatbot() {
   // Chat Interface Component
   return (
     <div 
-      className="min-h-screen flex flex-col items-center p-4 relative"
+      className="min-h-screen flex flex-col items-center p-2 sm:p-4 relative"
       style={{
         background: 'linear-gradient(135deg, #f8f9f6 0%, #f1f3ed 30%, #eaede3 70%, #e3e7d9 100%)'
       }}
     >
       {/* Header */}
-      <div className="w-full max-w-4xl mb-6 flex items-center justify-between bg-white/80 backdrop-blur-md rounded-xl p-4 border border-gray-200 shadow-sm">
+      <div className="w-full max-w-4xl mb-4 sm:mb-6 flex flex-col sm:flex-row items-center justify-between bg-white/80 backdrop-blur-md rounded-xl p-2 sm:p-4 border border-gray-200 shadow-sm gap-2 sm:gap-0">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 bg-[#6d7028] rounded-xl flex items-center justify-center text-white text-xl font-bold">
             V
@@ -240,9 +242,9 @@ function Chatbot() {
       </div>
 
       {/* Chat Container */}
-      <div className="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-6 flex flex-col gap-6 flex-1 border border-gray-200">
+      <div className="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-2xl shadow-xl p-2 sm:p-4 flex flex-col gap-3 sm:gap-6 flex-1 border border-gray-200">
         {/* Messages Area */}
-        <div className="flex flex-col gap-4 h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-[#6d7028] scrollbar-track-gray-100">
+        <div className="flex flex-col gap-2 sm:gap-4 h-80 sm:h-96 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-[#6d7028] scrollbar-track-gray-100">
           {messages.length === 0 && (
             <div className="text-center py-12">
               <div className="w-16 h-16 bg-[#6d7028]/10 rounded-full flex items-center justify-center mx-auto mb-6">

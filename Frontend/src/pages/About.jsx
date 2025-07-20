@@ -19,10 +19,11 @@ const About = () => {
       {/* Contact Modal */}
       {showContactModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full relative transform transition-all duration-300 scale-100">
+          <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 max-w-md w-full relative transform transition-all duration-300 scale-100">
             <button 
               onClick={closeContactModal}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200 p-2"
+              aria-label="Close contact modal"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200 p-2 min-h-[44px] min-w-[44px]"
             >
               <FaTimes className="text-xl" />
             </button>
@@ -31,8 +32,8 @@ const About = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-4 flex items-center justify-center">
                 <span className="text-2xl font-bold text-white">V</span>
               </div>
-              <h3 className="text-2xl font-bold text-[#2d310e] mb-2">Get In Touch</h3>
-              <p className="text-gray-600">We're here to help you!</p>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#2d310e] mb-2">Get In Touch</h3>
+              <p className="text-gray-600 text-sm sm:text-base">We're here to help you!</p>
             </div>
             
             <div className="space-y-4">
@@ -72,7 +73,8 @@ const About = () => {
             <div className="mt-6 text-center">
               <button 
                 onClick={closeContactModal}
-                className="bg-gradient-to-r from-[#7e973d] to-[#2d310e] text-white px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                aria-label="Close contact modal"
+                className="bg-gradient-to-r from-[#7e973d] to-[#2d310e] text-white px-4 sm:px-6 py-2 rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105 min-h-[44px] min-w-[44px] text-sm sm:text-base"
               >
                 Got it!
               </button>
@@ -82,23 +84,24 @@ const About = () => {
       )}
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-[#2d310e] via-[#7e973d] to-[#2d310e] text-white py-20 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-[#2d310e] via-[#7e973d] to-[#2d310e] text-white py-12 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-20 h-20 bg-white rounded-full animate-bounce"></div>
           <div className="absolute top-32 right-20 w-12 h-12 bg-white rounded-full animate-pulse"></div>
           <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-white rounded-full animate-bounce"></div>
         </div>
         
-        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: "var(--font-italiana)" }}>
+        <div className="max-w-6xl mx-auto px-2 sm:px-6 text-center relative z-10">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: "var(--font-italiana)" }}>
             Welcome to Velmira
           </h1>
-          <p className="text-xl md:text-2xl opacity-90 max-w-3xl mx-auto mb-8">
+          <p className="text-base sm:text-xl md:text-2xl opacity-90 max-w-3xl mx-auto mb-8">
             Where shopping meets excellence and every purchase tells a story of quality and trust
           </p>
           <button 
             onClick={openContactModal}
-            className="bg-white text-[#2d310e] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+            aria-label="Open contact modal"
+            className="bg-white text-[#2d310e] px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg min-h-[44px] min-w-[44px] text-sm sm:text-base"
           >
             Contact Us
           </button>
@@ -106,30 +109,30 @@ const About = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-2 sm:px-6 py-8 sm:py-16">
         
         {/* Brand Story */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#2d310e] mb-4">Our Story</h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#2d310e] mb-4">Our Story</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#7e973d] to-[#2d310e] mx-auto"></div>
           </div>
           
-          <div className="bg-white rounded-2xl shadow-xl p-8 hover:shadow-2xl transition-shadow duration-300">
+          <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 hover:shadow-2xl transition-shadow duration-300">
             <div className="text-center mb-8">
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
+              <p className="text-base sm:text-xl text-gray-700 leading-relaxed mb-6">
                 Welcome to Velmira, where quality meets innovation in the world of e-commerce. We're passionate about 
                 creating exceptional shopping experiences that go beyond the ordinary. Our platform combines cutting-edge 
                 technology with personalized service to bring you products that truly matter.
               </p>
               
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                 At Velmira, we believe shopping should be intuitive, enjoyable, and rewarding. Every product we feature 
                 is carefully selected to meet our high standards of quality and value.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-6 mt-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8">
               <div className="text-center p-6 bg-gradient-to-br from-[#f8f9fa] to-[#e3f2fd] rounded-xl hover:transform hover:scale-105 transition-all duration-300">
                 <FaRocket className="text-4xl text-[#7e973d] mx-auto mb-3" />
                 <h3 className="font-bold text-[#2d310e] mb-2">Innovation First</h3>
@@ -154,27 +157,27 @@ const About = () => {
         {/* Meet Our Team */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#2d310e] mb-4">Meet Our Founders</h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#2d310e] mb-4">Meet Our Founders</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#7e973d] to-[#2d310e] mx-auto"></div>
             <p className="text-gray-600 mt-4">The visionary team behind Velmira's success</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {/* Founder 1 */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105">
+            <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 text-center hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105">
               <div className="w-32 h-32 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
                 <span className="text-4xl font-bold text-white">NS</span>
               </div>
-              <h3 className="text-3xl font-bold text-[#2d310e] mb-2">Nabila Sultana</h3>
+              <h3 className="text-xl sm:text-3xl font-bold text-[#2d310e] mb-2">Nabila Sultana</h3>
               <div className="flex items-center justify-center mb-4">
-                <span className="bg-gradient-to-r from-[#7e973d] to-[#2d310e] text-white px-4 py-2 rounded-full text-sm font-semibold">Co-Founder & CEO</span>
+                <span className="bg-gradient-to-r from-[#7e973d] to-[#2d310e] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold">Co-Founder & CEO</span>
               </div>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base">
                 The visionary leader driving Velmira's mission forward. Nabila combines strategic thinking with a 
                 deep understanding of customer needs, ensuring that every aspect of our platform delivers exceptional value. 
                 Her commitment to excellence shapes our company culture and product philosophy.
               </p>
-              <div className="flex justify-center space-x-4 text-[#7e973d]">
+              <div className="flex justify-center space-x-2 sm:space-x-4 text-[#7e973d]">
                 <FaRocket className="text-xl" />
                 <FaUsers className="text-xl" />
                 <FaHeart className="text-xl" />
@@ -182,20 +185,20 @@ const About = () => {
             </div>
 
             {/* Founder 2 */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105">
+            <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 text-center hover:shadow-2xl transition-all duration-300 hover:transform hover:scale-105">
               <div className="w-32 h-32 bg-gradient-to-r from-[#2d310e] to-[#7e973d] rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
                 <span className="text-4xl font-bold text-white">TA</span>
               </div>
-              <h3 className="text-3xl font-bold text-[#2d310e] mb-2">Tasnia Afrin</h3>
+              <h3 className="text-xl sm:text-3xl font-bold text-[#2d310e] mb-2">Tasnia Afrin</h3>
               <div className="flex items-center justify-center mb-4">
-                <span className="bg-gradient-to-r from-[#2d310e] to-[#7e973d] text-white px-4 py-2 rounded-full text-sm font-semibold">Co-Founder & CTO</span>
+                <span className="bg-gradient-to-r from-[#2d310e] to-[#7e973d] text-white px-3 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-semibold">Co-Founder & CTO</span>
               </div>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base">
                 The technical mastermind behind Velmira's seamless user experience. Tasnia's expertise in modern web 
                 technologies and user-centric design ensures our platform is not only powerful but also intuitive. 
                 Her innovation drives our technological advancement and platform reliability.
               </p>
-              <div className="flex justify-center space-x-4 text-[#7e973d]">
+              <div className="flex justify-center space-x-2 sm:space-x-4 text-[#7e973d]">
                 <FaShoppingBag className="text-xl" />
                 <FaGem className="text-xl" />
                 <FaRocket className="text-xl" />
@@ -207,20 +210,20 @@ const About = () => {
         {/* Why Choose Velmira */}
         <div className="mb-16">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#2d310e] mb-4">Why Choose Velmira</h2>
+            <h2 className="text-2xl sm:text-4xl font-bold text-[#2d310e] mb-4">Why Choose Velmira</h2>
             <div className="w-24 h-1 bg-gradient-to-r from-[#7e973d] to-[#2d310e] mx-auto"></div>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-4 flex items-center justify-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-4 flex items-center justify-center">
                 <FaRocket className="text-white text-xl" />
               </div>
-              <h3 className="font-semibold text-[#2d310e] mb-2">Lightning Fast Delivery</h3>
-              <p className="text-gray-600 text-sm">Swift and reliable shipping that gets your orders to you quickly</p>
+              <h3 className="font-semibold text-[#2d310e] mb-2 text-sm sm:text-base">Lightning Fast Delivery</h3>
+              <p className="text-gray-600 text-xs sm:text-sm">Swift and reliable shipping that gets your orders to you quickly</p>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-4 flex items-center justify-center">
                 <FaShieldAlt className="text-white text-xl" />
               </div>
@@ -228,7 +231,7 @@ const About = () => {
               <p className="text-gray-600 text-sm">Advanced security measures protect your data and transactions</p>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-4 flex items-center justify-center">
                 <FaGem className="text-white text-xl" />
               </div>
@@ -236,7 +239,7 @@ const About = () => {
               <p className="text-gray-600 text-sm">Carefully curated products that meet our strict quality standards</p>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105">
               <div className="w-16 h-16 bg-gradient-to-r from-[#7e973d] to-[#2d310e] rounded-full mx-auto mb-4 flex items-center justify-center">
                 <FaHeadset className="text-white text-xl" />
               </div>

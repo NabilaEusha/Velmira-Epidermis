@@ -68,14 +68,13 @@ const Products = ({ filters, sort, query }) => {
   }, [products, filters, sort])
 
   return (
-    <div className="flex flex-wrap mx-[40px]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 px-2 sm:px-6 md:px-10 lg:px-16">
       {filteredProducts.map((product, index) => (
-
-        <Link to={`/product/${product._id}`}>
-<Product product={product} />
+        <Link to={`/product/${product._id}`} key={product._id} aria-label={`View details for ${product.title || 'product'}`}
+          className="block h-full">
+          <Product product={product} />
         </Link>
-      ))
-      }
+      ))}
     </div>
   );
 };
