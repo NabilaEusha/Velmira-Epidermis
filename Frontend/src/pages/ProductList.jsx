@@ -1,8 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import Products from '../components/Products';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const ProductList = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const location = useLocation();
   const query = location.pathname.split("/")[2];
   const [filters, setFilters] = useState({});

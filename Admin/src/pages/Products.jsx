@@ -9,6 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Products = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");

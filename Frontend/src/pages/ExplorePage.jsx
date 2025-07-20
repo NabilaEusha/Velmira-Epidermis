@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { blogData } from '../components/mockData';
 
 const ExplorePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
 

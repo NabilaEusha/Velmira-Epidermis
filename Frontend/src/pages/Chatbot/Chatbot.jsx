@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import { MessageCircle, Send, ArrowLeft, User, Bot, Sparkles, Leaf, Shield, Home } from 'lucide-react'
 
 function Chatbot() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [question, setQuestion] = useState("")
   const [messages, setMessages] = useState([])
   const [showChat, setShowChat] = useState(false)
