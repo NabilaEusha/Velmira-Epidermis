@@ -73,4 +73,76 @@ const resetPassword = async(req, res) => {
     }
 };
 
-export { getAllUsers, getUser, deleteUser, updateUser, resetPassword };
+
+// UPDATE USER PROFILE
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const { userId, name, email, phone, address } = req.body;
+
+  // Check if user exists
+  const user = await User.findById(userId);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Check if email is already taken by another user
+  if (email !== user.email) {
+    const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+    if (existingUser) {
+      res.status(400);
+      throw new Error("Email already in use");
+    }
+  }
+
+  // Update user information
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      name,
+      email,
+      phone,
+      address
+    },
+    { new: true }
+  );
+
+  // Remove password from response
+  const { password, ...userInfo } = updatedUser._doc;
+
+  res.status(200).json({
+    success: true,
+    message: "Profile updated successfully",
+    user: userInfo
+  });
+});
+
+// CHANGE PASSWORD
+const changePassword = asyncHandler(async (req, res) => {
+  const { userId, currentPassword, newPassword } = req.body;
+
+  // Find user
+  const user = await User.findById(userId);
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+
+  // Verify current password using the schema method
+  const isCurrentPasswordValid = await user.matchPassword(currentPassword);
+  if (!isCurrentPasswordValid) {
+    res.status(400);
+    throw new Error("Current password is incorrect");
+  }
+
+  // Update password (the pre-save hook will hash it automatically)
+  user.password = newPassword;
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Password updated successfully"
+  });
+});
+
+
+export { getAllUsers, getUser, deleteUser, updateUser, resetPassword, updateUserProfile, changePassword  };
