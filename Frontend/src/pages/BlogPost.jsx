@@ -8,11 +8,10 @@ const BlogPost = () => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const currentBlog = blogData.find(b => b.id === parseInt(id));
     setBlog(currentBlog);
-    
     if (currentBlog) {
-      // Get related blogs from the same category
       const related = blogData
         .filter(b => b.category === currentBlog.category && b.id !== currentBlog.id)
         .slice(0, 3);
@@ -33,13 +32,12 @@ const BlogPost = () => {
     );
   }
 
-  // Mock full content for demonstration
+  // Mock full content for demonstration, with a callout box for tips
   const fullContent = `
     <p>Welcome to this comprehensive guide on ${blog.title.toLowerCase()}. This article will provide you with in-depth insights and practical tips that you can implement in your daily skincare routine.</p>
-    
+    <div class="callout-tip"><strong>Tip:</strong> For best results, always consult with a dermatologist before making significant changes to your skincare routine.</div>
     <h3>Understanding the Basics</h3>
     <p>Before diving into specific solutions, it's important to understand the fundamentals. Your skin is your body's largest organ and requires consistent care and attention to maintain its health and appearance.</p>
-    
     <h3>Key Points to Remember</h3>
     <ul>
       <li>Consistency is crucial for seeing results</li>
@@ -47,7 +45,6 @@ const BlogPost = () => {
       <li>Listen to your skin and adjust your routine as needed</li>
       <li>Protect your skin from environmental damage</li>
     </ul>
-    
     <h3>Step-by-Step Approach</h3>
     <p>Here's a detailed breakdown of how to implement these recommendations:</p>
     <ol>
@@ -56,11 +53,9 @@ const BlogPost = () => {
       <li>Always finish with sunscreen during your morning routine</li>
       <li>Be patient - most skincare results take 4-6 weeks to become visible</li>
     </ol>
-    
     <h3>Common Mistakes to Avoid</h3>
     <p>Many people make these common errors that can hinder their progress:</p>
     <p>Over-exfoliating, using too many active ingredients at once, skipping moisturizer, and not being consistent with their routine.</p>
-    
     <h3>Conclusion</h3>
     <p>Remember that healthy skin is a journey, not a destination. Be patient with yourself and your skin as you implement these changes. With consistent care and the right approach, you'll be on your way to achieving your skincare goals.</p>
   `;
@@ -94,16 +89,23 @@ const BlogPost = () => {
           </div>
         </div>
       </div>
-
+      {/* Divider */}
+      <div className="w-full h-2 bg-gradient-to-r from-[#7e973d]/30 via-[#e3e7d9] to-[#7e973d]/30"></div>
       {/* Article Content */}
       <div className="max-w-4xl mx-auto px-2 sm:px-6 py-8 sm:py-12">
-        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8 mb-8 sm:mb-12">
+        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-10 mb-8 sm:mb-12 border-l-8 border-[#7e973d]/80 relative">
+          <style>{`
+            .prose h3 { color: #7e973d; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; }
+            .prose ul, .prose ol { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+            .prose li { margin-bottom: 0.5rem; }
+            .prose strong { color: #6d7028; }
+            .callout-tip { background: #f6fbe9; border-left: 5px solid #7e973d; padding: 1rem; margin: 1.5rem 0; border-radius: 0.5rem; font-size: 1rem; color: #4b5a1a; font-weight: 500; }
+          `}</style>
           <div 
             className="prose prose-lg max-w-none"
             dangerouslySetInnerHTML={{ __html: fullContent }}
           />
         </div>
-
         {/* Related Articles */}
         {relatedBlogs.length > 0 && (
           <div className="mb-8 sm:mb-12">
@@ -114,12 +116,12 @@ const BlogPost = () => {
                   key={relatedBlog.id}
                   to={`/blog/${relatedBlog.id}`}
                   aria-label={`Read related article: ${relatedBlog.title}`}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 min-h-[44px] min-w-[44px]"
+                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 min-h-[44px] min-w-[44px] border border-[#e3e7d9]"
                 >
                   <img 
                     src={relatedBlog.image} 
                     alt={relatedBlog.title}
-                    className="w-full h-28 sm:h-40 object-cover"
+                    className="w-full h-28 sm:h-40 object-cover hover:scale-105 transition-transform duration-300"
                   />
                   <div className="p-3 sm:p-4">
                     <h4 className="font-semibold text-gray-800 mb-2 line-clamp-2 text-xs sm:text-base">
@@ -134,7 +136,6 @@ const BlogPost = () => {
             </div>
           </div>
         )}
-
         {/* Back to Explore */}
         <div className="text-center">
           <Link 

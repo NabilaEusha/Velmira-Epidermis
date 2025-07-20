@@ -43,9 +43,13 @@
         
         .email-header {
             background-color: #e9dfe5;
-            padding: 30px;
+            padding: 40px 30px;
             color: #5e3d4d;
             text-align: center;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .email-body {
@@ -60,10 +64,81 @@
             text-align: center;
         }
         
-        img {
-            padding: 16px;
-            max-width: 160px;
+        .logo {
+            max-width: 280px;
+            width: 70%;
+            min-width: 200px;
             height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* Mobile responsiveness */
+        @media screen and (max-width: 600px) {
+            .email-wrapper {
+                padding: 10px;
+                margin: 10px;
+            }
+            
+            .email-header {
+                padding: 30px 20px;
+                min-height: 100px;
+            }
+            
+            .logo {
+                max-width: 250px;
+                width: 80%;
+                min-width: 180px;
+            }
+            
+            .email-body {
+                padding: 20px;
+            }
+            
+            body {
+                font-size: 14px;
+            }
+        }
+        
+        /* Large screens */
+        @media screen and (min-width: 768px) {
+            .email-header {
+                padding: 50px 30px;
+                min-height: 140px;
+            }
+            
+            .logo {
+                max-width: 320px;
+                width: 60%;
+            }
+        }
+        
+        /* Extra small screens */
+        @media screen and (max-width: 480px) {
+            .email-wrapper {
+                padding: 5px;
+                margin: 5px;
+                border-radius: 5px;
+            }
+            
+            .email-header {
+                padding: 25px 15px;
+                min-height: 80px;
+            }
+            
+            .logo {
+                max-width: 200px;
+                width: 85%;
+                min-width: 150px;
+            }
+            
+            .email-body {
+                padding: 15px;
+            }
+            
+            body {
+                font-size: 13px;
+            }
         }
     </style>
 </head>
@@ -71,14 +146,14 @@
 <body>
     <div class="email-wrapper">
         <div class="email-header">
-            <img src="cid:logo" alt="Velmira Logo" style="max-width:40%; height:auto; display:block; margin:0 auto;" />
+            <img src="cid:logo" alt="Velmira Logo" class="logo" />
         </div>
         <div class="email-body">
             <p>Hello
                 <%= name %>,</p>
             <p>Welcome to <strong>Velmira</strong>, where velvet meets mirror and your skin becomes its truest reflection.</p>
-            <p>We’re here to guide you toward radiant, confident skin with gentle, science-led care. Start with our personalized Skin Analysis tool and explore products designed to match your unique glow.</p>
-            <p>Thanks for being here. Let’s glow together.</p>
+            <p>We're here to guide you toward radiant, confident skin with gentle, science-led care. Start with our personalized Skin Analysis tool and explore products designed to match your unique glow.</p>
+            <p>Thanks for being here. Let's glow together.</p>
         </div>
 
         <div class="email-footer">
