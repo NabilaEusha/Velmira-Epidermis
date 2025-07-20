@@ -3,12 +3,17 @@ import { FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import {userRequest} from "../requestMethods"
 import { useEffect, useState } from 'react';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Products = () => {
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
 
   useEffect(() =>{
     const getProducts = async() =>{
@@ -23,15 +28,18 @@ const Products = () => {
   },[])
 
   // Add product delete handler
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      try {
-        await userRequest.delete(`/products/${id}`);
-        setProducts(products.filter((item) => item._id !== id));
-      } catch (error) {
-        console.log(error);
-        alert("Failed to delete product");
-      }
+  const handleDelete = async () => {
+    if (!selectedProductId) return;
+    try {
+      await userRequest.delete(`/products/${selectedProductId}`);
+      setProducts(products.filter((item) => item._id !== selectedProductId));
+      toast.success('Product deleted successfully!');
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to delete product');
+    } finally {
+      setDialogOpen(false);
+      setSelectedProductId(null);
     }
   };
 
@@ -80,7 +88,7 @@ const Products = () => {
       renderCell: (params) => {
         return (
           <>
-            <FaTrash className="text-red-500 cursor-pointer m-2 hover:text-red-700 transition-colors" onClick={() => handleDelete(params.row._id)} />
+            <FaTrash className="text-red-500 cursor-pointer m-2 hover:text-red-700 transition-colors" onClick={() => { setDialogOpen(true); setSelectedProductId(params.row._id); }} />
           </>
         );
       },
@@ -95,6 +103,19 @@ const Products = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 py-10 px-4 flex justify-center">
+      <ToastContainer position="top-right" />
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this product? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)} color="primary">Cancel</Button>
+          <Button onClick={handleDelete} color="error" variant="contained">Delete</Button>
+        </DialogActions>
+      </Dialog>
       <div className="w-full max-w-6xl">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold text-gray-800">Product Management</h1>
